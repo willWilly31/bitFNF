@@ -7,6 +7,15 @@ import { useState } from "react";
 import { toast } from "sonner";
 import logoFull from "@/assets/logo-full.png";
 import logoIcon from "@/assets/logo-icon.png";
+import unlockIcon from "@/assets/services/unlock.png";
+import softwareIcon from "@/assets/services/software.png";
+import matotIcon from "@/assets/services/matot.png";
+import gntiPortIcon from "@/assets/services/gnti_port.png";
+import gantiIcIcon from "@/assets/services/ganti_ic.png";
+import gantiLcdIcon from "@/assets/services/ganti_lcd.png";
+import flexibelIcon from "@/assets/services/flexibel_on_off_volume.png";
+import chargingIcon from "@/assets/services/charging.png";
+import bootloopIcon from "@/assets/services/bootloop.png";
 
 const Index = () => {
   const [formData, setFormData] = useState({
@@ -185,55 +194,126 @@ Pesan: ${formData.message}`;
             </p>
           </div>
 
-          <div className="max-w-3xl mx-auto space-y-4">
-            {[
-              {
-                icon: CheckCircle,
-                title: "Cek Diagnosa",
-                badge: "Gratis",
-                badgeColor: "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300",
-                bgColor: "bg-green-50/50 dark:bg-green-950/20"
-              },
-              {
-                icon: Smartphone,
-                title: "Ganti LCD / Touchscreen",
-                badge: "LCD",
-                badgeColor: "bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300",
-                bgColor: "bg-blue-50/50 dark:bg-blue-950/20"
-              },
-              {
-                icon: Cpu,
-                title: "Perbaikan Board / IC",
-                badge: "Board",
-                badgeColor: "bg-purple-100 text-purple-700 dark:bg-purple-900/30 dark:text-purple-300",
-                bgColor: "bg-purple-50/50 dark:bg-purple-950/20"
-              },
-              {
-                icon: Battery,
-                title: "Ganti Baterai",
-                badge: "Battery",
-                badgeColor: "bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300",
-                bgColor: "bg-amber-50/50 dark:bg-amber-950/20"
-              }
-            ].map((service, idx) => (
-              <Card 
-                key={idx}
-                className={`p-6 hover-lift border-2 ${service.bgColor}`}
-                style={{ animationDelay: `${idx * 0.1}s` }}
-              >
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-4">
-                    <div className="w-12 h-12 rounded-lg bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
-                      <service.icon className="w-6 h-6 text-white" />
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {[
+                {
+                  icon: CheckCircle,
+                  title: "Cek Diagnosa",
+                  badge: "Gratis",
+                  badgeColor: "bg-green-500",
+                  image: null
+                },
+                {
+                  icon: null,
+                  title: "Ganti LCD",
+                  badge: "LCD",
+                  badgeColor: "bg-blue-500",
+                  image: gantiLcdIcon
+                },
+                {
+                  icon: null,
+                  title: "Ganti IC",
+                  badge: "IC",
+                  badgeColor: "bg-purple-500",
+                  image: gantiIcIcon
+                },
+                {
+                  icon: Battery,
+                  title: "Ganti Baterai",
+                  badge: "Battery",
+                  badgeColor: "bg-amber-500",
+                  image: null
+                },
+                {
+                  icon: null,
+                  title: "Masalah Charging",
+                  badge: "Charging",
+                  badgeColor: "bg-red-500",
+                  image: chargingIcon
+                },
+                {
+                  icon: null,
+                  title: "Ganti Port",
+                  badge: "Port",
+                  badgeColor: "bg-cyan-500",
+                  image: gntiPortIcon
+                },
+                {
+                  icon: null,
+                  title: "Flexibel On/Off",
+                  badge: "Flexibel",
+                  badgeColor: "bg-indigo-500",
+                  image: flexibelIcon
+                },
+                {
+                  icon: null,
+                  title: "HP Mati Total",
+                  badge: "Mati Total",
+                  badgeColor: "bg-gray-500",
+                  image: matotIcon
+                },
+                {
+                  icon: null,
+                  title: "Bootloop",
+                  badge: "Bootloop",
+                  badgeColor: "bg-pink-500",
+                  image: bootloopIcon
+                },
+                {
+                  icon: null,
+                  title: "Software Error",
+                  badge: "Software",
+                  badgeColor: "bg-violet-500",
+                  image: softwareIcon
+                },
+                {
+                  icon: null,
+                  title: "Unlock",
+                  badge: "Unlock",
+                  badgeColor: "bg-teal-500",
+                  image: unlockIcon
+                },
+                {
+                  icon: Cpu,
+                  title: "Perbaikan Board",
+                  badge: "Board",
+                  badgeColor: "bg-orange-500",
+                  image: null
+                }
+              ].map((service, idx) => (
+                <Card 
+                  key={idx}
+                  className="group relative overflow-hidden hover-lift border-2 bg-card/50 backdrop-blur-sm"
+                  style={{ animationDelay: `${idx * 0.05}s` }}
+                >
+                  <div className="aspect-square p-4 flex flex-col items-center justify-center gap-3">
+                    {service.image ? (
+                      <div className="w-16 h-16 flex items-center justify-center">
+                        <img 
+                          src={service.image} 
+                          alt={service.title}
+                          className="w-full h-full object-contain transition-transform group-hover:scale-110"
+                        />
+                      </div>
+                    ) : service.icon ? (
+                      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center transition-transform group-hover:scale-110">
+                        <service.icon className="w-8 h-8 text-white" />
+                      </div>
+                    ) : null}
+                    
+                    <div className="text-center space-y-1">
+                      <h4 className="text-sm font-semibold leading-tight">{service.title}</h4>
+                      <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium text-white ${service.badgeColor}`}>
+                        {service.badge}
+                      </span>
                     </div>
-                    <h4 className="text-lg font-semibold">{service.title}</h4>
                   </div>
-                  <span className={`px-3 py-1 rounded-full text-sm font-semibold ${service.badgeColor}`}>
-                    {service.badge}
-                  </span>
-                </div>
-              </Card>
-            ))}
+                  
+                  <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/20 rounded-lg transition-colors pointer-events-none" />
+                </Card>
+              ))}
+            </div>
           </div>
         </section>
 
