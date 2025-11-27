@@ -52,28 +52,28 @@ Pesan: ${formData.message}`;
       <div className="fixed inset-0 tech-pattern pointer-events-none opacity-40" />
 
       {/* Header */}
-      <header className="relative z-50 border-b border-border/40 bg-background/80 backdrop-blur-lg">
-        <nav className="container mx-auto px-4 py-4">
+      <header className="sticky top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur-xl shadow-sm">
+        <nav className="container mx-auto px-4 py-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 animate-fade-in">
-              <img src={logoIcon} alt="Bit Logo" className="w-10 h-10 animate-float" />
+              <img src={logoIcon} alt="Bit Logo" className="w-11 h-11 animate-float drop-shadow-lg" />
               <div>
-                <h1 className="text-lg font-bold text-gradient">Bit</h1>
-                <p className="text-xs text-muted-foreground">Fast Fix No Fuss</p>
+                <h1 className="text-xl font-bold text-gradient tracking-tight">Bit</h1>
+                <p className="text-xs text-muted-foreground font-medium">Fast Fix No Fuss</p>
               </div>
             </div>
 
-            <div className="hidden md:flex items-center gap-6">
-              <a href="#services" className="text-sm font-medium hover:text-primary transition-colors">
+            <div className="hidden md:flex items-center gap-8">
+              <a href="#services" className="text-sm font-semibold hover:text-primary transition-all hover:scale-105">
                 Layanan
               </a>
-              <a href="#why" className="text-sm font-medium hover:text-primary transition-colors">
+              <a href="#why" className="text-sm font-semibold hover:text-primary transition-all hover:scale-105">
                 Kenapa Kami
               </a>
-              <a href="#contact" className="text-sm font-medium hover:text-primary transition-colors">
+              <a href="#contact" className="text-sm font-semibold hover:text-primary transition-all hover:scale-105">
                 Kontak
               </a>
-              <Button asChild className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity">
+              <Button asChild className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all hover:scale-105 shadow-lg">
                 <a href="https://wa.me/6281390004553" target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="w-4 h-4 mr-2" />
                   WhatsApp
@@ -86,19 +86,19 @@ Pesan: ${formData.message}`;
 
       <main className="relative">
         {/* Hero Section */}
-        <section className="container mx-auto px-4 py-16 md:py-24">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
-            <div className="space-y-6 animate-fade-in">
-              <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium">
+        <section className="container mx-auto px-4 py-20 md:py-32">
+          <div className="grid md:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8 animate-fade-in">
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary/10 text-primary rounded-full text-sm font-semibold shadow-sm">
                 <CheckCircle className="w-4 h-4" />
                 Fast Fix No Fuss
               </div>
 
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight">
+              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.1] tracking-tight">
                 Perbaikan <span className="text-gradient">Smartphone & Tablet</span> Profesional
               </h2>
 
-              <p className="text-lg text-muted-foreground max-w-xl">
+              <p className="text-lg md:text-xl text-muted-foreground max-w-xl leading-relaxed">
                 Teknisi berpengalaman 10+ tahun. Sparepart berkualitas. Garansi servis. 
                 Pickup service tersedia untuk area Medan.
               </p>
@@ -107,7 +107,7 @@ Pesan: ${formData.message}`;
                 <Button 
                   asChild 
                   size="lg" 
-                  className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity text-lg h-14"
+                  className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all hover:scale-105 text-lg h-14 shadow-xl"
                 >
                   <a href="https://wa.me/6281390004553" target="_blank" rel="noopener noreferrer">
                     <MessageCircle className="w-5 h-5 mr-2" />
@@ -115,23 +115,23 @@ Pesan: ${formData.message}`;
                   </a>
                 </Button>
                 
-                <Button asChild size="lg" variant="outline" className="text-lg h-14 border-2 hover-lift">
+                <Button asChild size="lg" variant="outline" className="text-lg h-14 border-2 hover-lift hover:border-primary/50">
                   <a href="#services">Lihat Layanan</a>
                 </Button>
               </div>
 
-              <div className="flex items-start gap-2 text-sm text-muted-foreground pt-4">
-                <MapPin className="w-4 h-4 mt-0.5 flex-shrink-0 text-primary" />
-                <span>Jl. Sei Bahorok No. 2A/71, Babura, Medan Baru, Medan</span>
+              <div className="flex items-start gap-3 text-sm text-muted-foreground pt-4">
+                <MapPin className="w-5 h-5 mt-0.5 flex-shrink-0 text-primary" />
+                <span className="leading-relaxed">Jl. Sei Bahorok No. 2A/71, Babura, Medan Baru, Medan</span>
               </div>
             </div>
 
             <div className="relative animate-fade-in" style={{ animationDelay: "0.2s" }}>
               <div className="relative aspect-square max-w-md mx-auto">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-3xl blur-3xl opacity-20 animate-glow" />
-                <Card className="relative overflow-hidden border-2 glow-effect">
-                  <div className="aspect-square bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center p-8">
-                    <img src={logoFull} alt="Bit - Fast Fix No Fuss" className="w-full h-auto" />
+                <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-3xl blur-3xl opacity-25 animate-glow" />
+                <Card className="relative overflow-hidden border-2 border-primary/20 shadow-2xl hover-lift">
+                  <div className="aspect-square bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center p-10">
+                    <img src={logoFull} alt="Bit - Fast Fix No Fuss" className="w-full h-auto drop-shadow-2xl" />
                   </div>
                 </Card>
               </div>
@@ -140,17 +140,17 @@ Pesan: ${formData.message}`;
         </section>
 
         {/* Why Choose Us */}
-        <section id="why" className="container mx-auto px-4 py-16">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4">
+        <section id="why" className="container mx-auto px-4 py-20">
+          <div className="text-center mb-16">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
               Kenapa Memilih <span className="text-gradient">Bit</span>?
             </h3>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
               Kami mengutamakan kualitas dan kepuasan pelanggan dalam setiap perbaikan
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-3 gap-8">
             {[
               {
                 icon: Wrench,
@@ -170,32 +170,32 @@ Pesan: ${formData.message}`;
             ].map((item, idx) => (
               <Card 
                 key={idx} 
-                className="p-6 hover-lift border-2 bg-card/50 backdrop-blur-sm"
-                style={{ animationDelay: `${idx * 0.1}s` }}
+                className="p-8 hover-lift border-2 bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:border-primary/30"
+                style={{ animationDelay: `${idx * 0.15}s` }}
               >
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-4 glow-effect">
-                  <item.icon className="w-6 h-6 text-white" />
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-6 glow-effect shadow-lg">
+                  <item.icon className="w-7 h-7 text-white" />
                 </div>
-                <h4 className="text-xl font-semibold mb-2">{item.title}</h4>
-                <p className="text-muted-foreground">{item.description}</p>
+                <h4 className="text-xl font-bold mb-3 tracking-tight">{item.title}</h4>
+                <p className="text-muted-foreground leading-relaxed">{item.description}</p>
               </Card>
             ))}
           </div>
         </section>
 
         {/* Services */}
-        <section id="services" className="container mx-auto px-4 py-16">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4">
+        <section id="services" className="container mx-auto px-4 py-20">
+          <div className="text-center mb-16">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
               Layanan <span className="text-gradient">Kami</span>
             </h3>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
               Solusi lengkap untuk semua kebutuhan perbaikan smartphone dan tablet Anda
             </p>
           </div>
 
           <div className="max-w-6xl mx-auto">
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {[
                 {
                   icon: CheckCircle,
@@ -284,33 +284,33 @@ Pesan: ${formData.message}`;
               ].map((service, idx) => (
                 <Card 
                   key={idx}
-                  className="group relative overflow-hidden hover-lift border-2 bg-card/50 backdrop-blur-sm"
+                  className="group relative overflow-hidden hover-lift border-2 bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:border-primary/30"
                   style={{ animationDelay: `${idx * 0.05}s` }}
                 >
-                  <div className="aspect-square p-4 flex flex-col items-center justify-center gap-3">
+                  <div className="aspect-square p-5 flex flex-col items-center justify-center gap-4">
                     {service.image ? (
-                      <div className="w-16 h-16 flex items-center justify-center">
+                      <div className="w-20 h-20 flex items-center justify-center">
                         <img 
                           src={service.image} 
                           alt={service.title}
-                          className="w-full h-full object-contain transition-transform group-hover:scale-110"
+                          className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110 drop-shadow-lg"
                         />
                       </div>
                     ) : service.icon ? (
-                      <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center transition-transform group-hover:scale-110">
-                        <service.icon className="w-8 h-8 text-white" />
+                      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center transition-all duration-500 group-hover:scale-110 shadow-lg">
+                        <service.icon className="w-10 h-10 text-white" />
                       </div>
                     ) : null}
                     
-                    <div className="text-center space-y-1">
-                      <h4 className="text-sm font-semibold leading-tight">{service.title}</h4>
-                      <span className={`inline-block px-2 py-0.5 rounded-full text-xs font-medium text-white ${service.badgeColor}`}>
+                    <div className="text-center space-y-2">
+                      <h4 className="text-sm font-bold leading-tight tracking-tight">{service.title}</h4>
+                      <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold text-white ${service.badgeColor} shadow-md`}>
                         {service.badge}
                       </span>
                     </div>
                   </div>
                   
-                  <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/20 rounded-lg transition-colors pointer-events-none" />
+                  <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/20 rounded-lg transition-all duration-500 pointer-events-none" />
                 </Card>
               ))}
             </div>
@@ -318,30 +318,30 @@ Pesan: ${formData.message}`;
         </section>
 
         {/* Contact Section */}
-        <section id="contact" className="container mx-auto px-4 py-16">
-          <div className="text-center mb-12">
-            <h3 className="text-3xl md:text-4xl font-bold mb-4">
+        <section id="contact" className="container mx-auto px-4 py-20">
+          <div className="text-center mb-16">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
               Hubungi <span className="text-gradient">Kami</span>
             </h3>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
               Siap membantu Anda dengan perbaikan cepat dan profesional
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+          <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
             {/* Contact Info */}
-            <Card className="p-8 border-2 bg-card/50 backdrop-blur-sm">
-              <h4 className="text-xl font-semibold mb-6">Info Kontak</h4>
-              <div className="space-y-4">
+            <Card className="p-10 border-2 bg-card/50 backdrop-blur-sm shadow-xl hover-lift">
+              <h4 className="text-2xl font-bold mb-8 tracking-tight">Info Kontak</h4>
+              <div className="space-y-5">
                 <a 
                   href="https://wa.me/6281390004553" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-start gap-3 p-3 rounded-lg hover:bg-muted/50 transition-colors group"
+                  className="flex items-start gap-4 p-4 rounded-xl hover:bg-muted/50 transition-all group"
                 >
-                  <MessageCircle className="w-5 h-5 mt-0.5 text-primary group-hover:scale-110 transition-transform" />
+                  <MessageCircle className="w-6 h-6 mt-0.5 text-primary group-hover:scale-110 transition-transform" />
                   <div>
-                    <p className="font-medium">WhatsApp</p>
+                    <p className="font-bold text-lg">WhatsApp</p>
                     <p className="text-sm text-muted-foreground">0813-9000-4553</p>
                   </div>
                 </a>
@@ -350,40 +350,40 @@ Pesan: ${formData.message}`;
                   href="https://instagram.com/bitservishpmedan" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="flex items-start gap-3 p-3 rounded-lg hover:bg-muted/50 transition-colors group"
+                  className="flex items-start gap-4 p-4 rounded-xl hover:bg-muted/50 transition-all group"
                 >
-                  <Instagram className="w-5 h-5 mt-0.5 text-secondary group-hover:scale-110 transition-transform" />
+                  <Instagram className="w-6 h-6 mt-0.5 text-secondary group-hover:scale-110 transition-transform" />
                   <div>
-                    <p className="font-medium">Instagram</p>
+                    <p className="font-bold text-lg">Instagram</p>
                     <p className="text-sm text-muted-foreground">@bitservishpmedan</p>
                   </div>
                 </a>
 
                 <a 
                   href="mailto:bitbuddy99@gmail.com"
-                  className="flex items-start gap-3 p-3 rounded-lg hover:bg-muted/50 transition-colors group"
+                  className="flex items-start gap-4 p-4 rounded-xl hover:bg-muted/50 transition-all group"
                 >
-                  <Mail className="w-5 h-5 mt-0.5 text-primary group-hover:scale-110 transition-transform" />
+                  <Mail className="w-6 h-6 mt-0.5 text-primary group-hover:scale-110 transition-transform" />
                   <div>
-                    <p className="font-medium">Email</p>
+                    <p className="font-bold text-lg">Email</p>
                     <p className="text-sm text-muted-foreground">bitbuddy99@gmail.com</p>
                   </div>
                 </a>
 
-                <div className="flex items-start gap-3 p-3 rounded-lg">
-                  <MapPin className="w-5 h-5 mt-0.5 text-secondary flex-shrink-0" />
+                <div className="flex items-start gap-4 p-4 rounded-xl">
+                  <MapPin className="w-6 h-6 mt-0.5 text-secondary flex-shrink-0" />
                   <div>
-                    <p className="font-medium">Alamat</p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="font-bold text-lg">Alamat</p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
                       Jl. Sei Bahorok No. 2A/71, Babura, Medan Baru, Kota Medan, Sumatera Utara 20154
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-start gap-3 p-3 rounded-lg">
-                  <Clock className="w-5 h-5 mt-0.5 text-primary" />
+                <div className="flex items-start gap-4 p-4 rounded-xl">
+                  <Clock className="w-6 h-6 mt-0.5 text-primary" />
                   <div>
-                    <p className="font-medium">Jam Operasional</p>
+                    <p className="font-bold text-lg">Jam Operasional</p>
                     <p className="text-sm text-muted-foreground">Senin - Sabtu: 09.00 - 18.00</p>
                     <p className="text-sm text-muted-foreground">Minggu: Tutup</p>
                   </div>
@@ -392,11 +392,11 @@ Pesan: ${formData.message}`;
             </Card>
 
             {/* Contact Form */}
-            <Card className="p-8 border-2 bg-card/50 backdrop-blur-sm">
-              <h4 className="text-xl font-semibold mb-6">Kirim Pesan</h4>
-              <form onSubmit={handleSubmit} className="space-y-4">
+            <Card className="p-10 border-2 bg-card/50 backdrop-blur-sm shadow-xl hover-lift">
+              <h4 className="text-2xl font-bold mb-8 tracking-tight">Kirim Pesan</h4>
+              <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="text-sm font-medium mb-2 block">
+                  <label htmlFor="name" className="text-sm font-bold mb-3 block">
                     Nama
                   </label>
                   <Input
@@ -405,11 +405,12 @@ Pesan: ${formData.message}`;
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     required
+                    className="h-12"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="contact" className="text-sm font-medium mb-2 block">
+                  <label htmlFor="contact" className="text-sm font-bold mb-3 block">
                     Email atau WhatsApp
                   </label>
                   <Input
@@ -418,11 +419,12 @@ Pesan: ${formData.message}`;
                     value={formData.contact}
                     onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
                     required
+                    className="h-12"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="text-sm font-medium mb-2 block">
+                  <label htmlFor="message" className="text-sm font-bold mb-3 block">
                     Pesan
                   </label>
                   <Textarea
@@ -432,15 +434,16 @@ Pesan: ${formData.message}`;
                     onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     rows={5}
                     required
+                    className="resize-none"
                   />
                 </div>
 
                 <Button 
                   type="submit" 
-                  className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity"
+                  className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all hover:scale-105 shadow-xl"
                   size="lg"
                 >
-                  <MessageCircle className="w-4 h-4 mr-2" />
+                  <MessageCircle className="w-5 h-5 mr-2" />
                   Kirim via WhatsApp
                 </Button>
               </form>
@@ -450,26 +453,26 @@ Pesan: ${formData.message}`;
       </main>
 
       {/* Footer */}
-      <footer className="relative border-t border-border/40 bg-muted/30 backdrop-blur-sm">
-        <div className="container mx-auto px-4 py-8">
-          <div className="text-center space-y-4">
+      <footer className="relative border-t border-border/40 bg-muted/20 backdrop-blur-sm">
+        <div className="container mx-auto px-4 py-12">
+          <div className="text-center space-y-6">
             <div className="flex items-center justify-center gap-3">
-              <img src={logoIcon} alt="Bit" className="w-8 h-8" />
-              <span className="font-bold text-lg text-gradient">Bit - Fast Fix No Fuss</span>
+              <img src={logoIcon} alt="Bit" className="w-10 h-10 drop-shadow-lg" />
+              <span className="font-bold text-xl text-gradient tracking-tight">Bit - Fast Fix No Fuss</span>
             </div>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground leading-relaxed">
               © {new Date().getFullYear()} Bit Service. Perbaikan Smartphone & Tablet Profesional di Medan.
             </p>
-            <div className="flex items-center justify-center gap-4 text-sm">
-              <a href="https://wa.me/6281390004553" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+            <div className="flex items-center justify-center gap-6 text-sm font-semibold">
+              <a href="https://wa.me/6281390004553" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline hover:scale-105 transition-all">
                 WhatsApp
               </a>
               <span className="text-muted-foreground">•</span>
-              <a href="https://instagram.com/bitservishpmedan" target="_blank" rel="noopener noreferrer" className="text-secondary hover:underline">
+              <a href="https://instagram.com/bitservishpmedan" target="_blank" rel="noopener noreferrer" className="text-secondary hover:underline hover:scale-105 transition-all">
                 Instagram
               </a>
               <span className="text-muted-foreground">•</span>
-              <a href="mailto:bitbuddy99@gmail.com" className="hover:underline">
+              <a href="mailto:bitbuddy99@gmail.com" className="hover:underline hover:scale-105 transition-all">
                 Email
               </a>
             </div>
@@ -482,10 +485,10 @@ Pesan: ${formData.message}`;
         href="https://wa.me/6281390004553"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-6 right-6 w-14 h-14 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-transform z-50 glow-effect"
+        className="fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-500 z-50 glow-effect animate-float"
         aria-label="Chat di WhatsApp"
       >
-        <MessageCircle className="w-6 h-6 text-white" />
+        <MessageCircle className="w-7 h-7 text-white drop-shadow-lg" />
       </a>
     </div>
   );
