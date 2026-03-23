@@ -288,9 +288,12 @@ Pesan: ${formData.message}`;
                   className="group relative overflow-hidden hover-lift border-2 bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:border-primary/30"
                   style={{ animationDelay: `${idx * 0.05}s` }}
                 >
-                  <div className="aspect-square p-5 flex flex-col items-center justify-center gap-4">
+                  {/* Leonardo AI shimmer effect */}
+                  <div className="absolute inset-0 shimmer-effect pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  
+                  <div className="aspect-square p-5 flex flex-col items-center justify-center gap-4 relative z-0">
                     {service.image ? (
-                      <div className="w-20 h-20 flex items-center justify-center">
+                      <div className="w-20 h-20 flex items-center justify-center rounded-2xl overflow-hidden">
                         <img 
                           src={service.image} 
                           alt={service.title}
@@ -310,8 +313,6 @@ Pesan: ${formData.message}`;
                       </span>
                     </div>
                   </div>
-                  
-                  <div className="absolute inset-0 border-2 border-transparent group-hover:border-primary/20 rounded-lg transition-all duration-500 pointer-events-none" />
                 </Card>
               ))}
             </div>
