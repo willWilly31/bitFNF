@@ -6,6 +6,7 @@ import { Mail, MapPin, Phone, Clock, Instagram, MessageCircle, CheckCircle, Wren
 import { useState } from "react";
 import { toast } from "sonner";
 import logoFull from "@/assets/logo-full.png";
+import bitHero from "@/assets/bit-hero.png";
 import logoIcon from "@/assets/logo-icon.png";
 import unlockIcon from "@/assets/services/unlock.png";
 import softwareIcon from "@/assets/services/software.png";
@@ -129,10 +130,8 @@ Pesan: ${formData.message}`;
             <div className="relative animate-fade-in" style={{ animationDelay: "0.2s" }}>
               <div className="relative aspect-square max-w-md mx-auto">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-3xl blur-3xl opacity-25 animate-glow" />
-                <Card className="relative overflow-hidden border-2 border-primary/20 shadow-2xl hover-lift">
-                  <div className="aspect-square bg-gradient-to-br from-gray-900 via-gray-800 to-black flex items-center justify-center p-10">
-                    <img src={logoFull} alt="Bit - Fast Fix No Fuss" className="w-full h-auto drop-shadow-2xl" />
-                  </div>
+                <Card className="relative overflow-hidden border-2 border-primary/20 shadow-2xl hover-lift rounded-3xl">
+                  <img src={bitHero} alt="Bit - Fast Fix No Fuss" className="w-full h-full object-cover" />
                 </Card>
               </div>
             </div>
