@@ -276,11 +276,11 @@ Pesan: ${formData.message}`;
                   image: unlockIcon
                 },
                 {
-                  icon: Cpu,
+                  icon: null,
                   title: "Perbaikan Board",
                   badge: "Board",
                   badgeColor: "bg-orange-500",
-                  image: null
+                  image: perbaikanBoardIcon
                 }
               ].map((service, idx) => (
                 <Card 
