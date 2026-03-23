@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, MapPin, Phone, Clock, Instagram, MessageCircle, CheckCircle, Wrench, Cpu, Battery, Smartphone } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { toast } from "sonner";
 import logoFull from "@/assets/logo-full.png";
 import bitHero from "@/assets/bit-hero.png";
@@ -21,7 +21,38 @@ import bootloopIcon from "@/assets/services/bootloop.png";
 import gantiBateraiIcon from "@/assets/services/ganti_baterai.png";
 import perbaikanBoardIcon from "@/assets/services/perbaikan_board.jpeg";
 
+const useParallax = () => {
+  const [scrollY, setScrollY] = useState(0);
+  const ticking = useRef(false);
+
+  useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
+    const onScroll = () => {
+      if (!ticking.current) {
+        requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking.current = false;
+        });
+        ticking.current = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const getStyle = useCallback((speed: number, maxOffset = 60) => {
+    const offset = Math.min(Math.max(scrollY * speed, -maxOffset), maxOffset);
+    return { transform: `translate3d(0, ${offset}px, 0)`, willChange: 'transform' } as const;
+  }, [scrollY]);
+
+  return getStyle;
+};
+
 const Index = () => {
+  const parallax = useParallax();
   const [formData, setFormData] = useState({
     name: "",
     contact: "",
@@ -53,7 +84,7 @@ Pesan: ${formData.message}`;
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-muted/30 to-background">
       {/* Tech Pattern Overlay */}
-      <div className="fixed inset-0 tech-pattern pointer-events-none opacity-40" />
+      <div className="fixed inset-0 tech-pattern pointer-events-none opacity-40" style={parallax(-0.03, 20)} />
 
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur-xl shadow-sm">
@@ -131,8 +162,8 @@ Pesan: ${formData.message}`;
             </div>
 
             <div className="relative animate-fade-in" style={{ animationDelay: "0.2s" }}>
-              <div className="relative aspect-square max-w-md mx-auto">
-                <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-3xl blur-3xl opacity-25 animate-glow" />
+              <div className="relative aspect-square max-w-md mx-auto" style={parallax(-0.05, 40)}>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-3xl blur-3xl opacity-25 animate-glow" style={parallax(-0.08, 30)} />
                 <Card className="relative overflow-hidden border-2 border-primary/20 shadow-2xl hover-lift rounded-3xl">
                   <img src={bitHero} alt="Bit - Fast Fix No Fuss" className="w-full h-full object-cover dark:hidden" />
                   <img src={bitHeroDark} alt="Bit - Fast Fix No Fuss" className="w-full h-full object-cover hidden dark:block" />
