@@ -7,6 +7,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import logoFull from "@/assets/logo-full.png";
 import bitHero from "@/assets/bit-hero.png";
+import bitHeroDark from "@/assets/bit-hero-dark.png";
 import logoIcon from "@/assets/logo-icon.png";
 import unlockIcon from "@/assets/services/unlock.png";
 import softwareIcon from "@/assets/services/software.png";
