@@ -21,6 +21,36 @@ import bootloopIcon from "@/assets/services/bootloop.png";
 import gantiBateraiIcon from "@/assets/services/ganti_baterai.png";
 import perbaikanBoardIcon from "@/assets/services/perbaikan_board.jpeg";
 
+const useParallax = () => {
+  const [scrollY, setScrollY] = useState(0);
+  const ticking = useRef(false);
+
+  useEffect(() => {
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced) return;
+
+    const onScroll = () => {
+      if (!ticking.current) {
+        requestAnimationFrame(() => {
+          setScrollY(window.scrollY);
+          ticking.current = false;
+        });
+        ticking.current = true;
+      }
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  const getStyle = useCallback((speed: number, maxOffset = 60) => {
+    const offset = Math.min(Math.max(scrollY * speed, -maxOffset), maxOffset);
+    return { transform: `translate3d(0, ${offset}px, 0)`, willChange: 'transform' } as const;
+  }, [scrollY]);
+
+  return getStyle;
+};
+
 const Index = () => {
   const [formData, setFormData] = useState({
     name: "",
