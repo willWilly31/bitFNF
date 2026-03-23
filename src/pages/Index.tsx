@@ -52,6 +52,7 @@ const useParallax = () => {
 };
 
 const Index = () => {
+  const parallax = useParallax();
   const [formData, setFormData] = useState({
     name: "",
     contact: "",
