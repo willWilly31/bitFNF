@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, MapPin, Phone, Clock, Instagram, MessageCircle, CheckCircle, Wrench, Cpu, Battery, Smartphone } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { toast } from "sonner";
 import logoFull from "@/assets/logo-full.png";
 import bitHero from "@/assets/bit-hero.png";
