@@ -18,7 +18,7 @@ import gantiLcdIcon from "@/assets/services/ganti_lcd.png";
 import flexibelIcon from "@/assets/services/flexibel_on_off_volume.png";
 import chargingIcon from "@/assets/services/charging.png";
 import bootloopIcon from "@/assets/services/bootloop.png";
-import gantiBateraiIcon from "@/assets/services/ganti_baterai.jpeg";
+import gantiBateraiIcon from "@/assets/services/ganti_baterai.png";
 import perbaikanBoardIcon from "@/assets/services/perbaikan_board.jpeg";
 
 const Index = () => {
