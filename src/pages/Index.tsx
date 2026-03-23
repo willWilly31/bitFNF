@@ -220,11 +220,11 @@ Pesan: ${formData.message}`;
                   image: gantiIcIcon
                 },
                 {
-                  icon: Battery,
+                  icon: null,
                   title: "Ganti Baterai",
                   badge: "Battery",
                   badgeColor: "bg-amber-500",
-                  image: null
+                  image: gantiBateraiIcon
                 },
                 {
                   icon: null,
