@@ -123,4 +123,22 @@ All colors MUST be HSL.
   .glow-effect {
     box-shadow: var(--shadow-glow);
   }
+
+  .shimmer-effect {
+    background: linear-gradient(
+      120deg,
+      transparent 20%,
+      hsla(var(--primary) / 0.08) 35%,
+      hsla(var(--secondary) / 0.15) 50%,
+      hsla(var(--primary) / 0.08) 65%,
+      transparent 80%
+    );
+    background-size: 300% 100%;
+    animation: shimmer 2.5s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
 }
