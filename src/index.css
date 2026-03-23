@@ -124,17 +124,47 @@ All colors MUST be HSL.
     box-shadow: var(--shadow-glow);
   }
 
-  .shimmer-effect {
+  .shimmer-border {
+    position: relative;
+    overflow: visible;
+  }
+  
+  .shimmer-border::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: inherit;
     background: linear-gradient(
       120deg,
       transparent 20%,
-      hsla(var(--primary) / 0.08) 35%,
-      hsla(var(--secondary) / 0.15) 50%,
-      hsla(var(--primary) / 0.08) 65%,
+      hsl(var(--primary)) 35%,
+      hsl(var(--secondary)) 50%,
+      hsl(var(--primary)) 65%,
       transparent 80%
     );
     background-size: 300% 100%;
     animation: shimmer 2.5s ease-in-out infinite;
+    z-index: 0;
+    opacity: 0;
+    transition: opacity 0.5s;
+  }
+  
+  .shimmer-border:hover::before {
+    opacity: 1;
+  }
+  
+  .shimmer-border::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: hsl(var(--card));
+    z-index: 0;
+  }
+  
+  .shimmer-border > * {
+    position: relative;
+    z-index: 1;
   }
 
   @keyframes shimmer {

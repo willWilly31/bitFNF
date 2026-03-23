@@ -7,6 +7,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import logoFull from "@/assets/logo-full.png";
 import bitHero from "@/assets/bit-hero.png";
+import bitHeroDark from "@/assets/bit-hero-dark.png";
 import logoIcon from "@/assets/logo-icon.png";
 import unlockIcon from "@/assets/services/unlock.png";
 import softwareIcon from "@/assets/services/software.png";
@@ -17,7 +18,7 @@ import gantiLcdIcon from "@/assets/services/ganti_lcd.png";
 import flexibelIcon from "@/assets/services/flexibel_on_off_volume.png";
 import chargingIcon from "@/assets/services/charging.png";
 import bootloopIcon from "@/assets/services/bootloop.png";
-import gantiBateraiIcon from "@/assets/services/ganti_baterai.jpeg";
+import gantiBateraiIcon from "@/assets/services/ganti_baterai.png";
 import perbaikanBoardIcon from "@/assets/services/perbaikan_board.jpeg";
 
 const Index = () => {
@@ -133,7 +134,8 @@ Pesan: ${formData.message}`;
               <div className="relative aspect-square max-w-md mx-auto">
                 <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-3xl blur-3xl opacity-25 animate-glow" />
                 <Card className="relative overflow-hidden border-2 border-primary/20 shadow-2xl hover-lift rounded-3xl">
-                  <img src={bitHero} alt="Bit - Fast Fix No Fuss" className="w-full h-full object-cover" />
+                  <img src={bitHero} alt="Bit - Fast Fix No Fuss" className="w-full h-full object-cover dark:hidden" />
+                  <img src={bitHeroDark} alt="Bit - Fast Fix No Fuss" className="w-full h-full object-cover hidden dark:block" />
                 </Card>
               </div>
             </div>
@@ -285,13 +287,10 @@ Pesan: ${formData.message}`;
               ].map((service, idx) => (
                 <Card 
                   key={idx}
-                  className="group relative overflow-hidden hover-lift border-2 bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:border-primary/30"
+                  className="shimmer-border group relative overflow-hidden hover-lift border-2 bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:border-transparent rounded-xl"
                   style={{ animationDelay: `${idx * 0.05}s` }}
                 >
-                  {/* Leonardo AI shimmer effect */}
-                  <div className="absolute inset-0 shimmer-effect pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  
-                  <div className="aspect-square p-5 flex flex-col items-center justify-center gap-4 relative z-0">
+                  <div className="aspect-square p-5 flex flex-col items-center justify-center gap-4">
                     {service.image ? (
                       <div className="w-20 h-20 flex items-center justify-center rounded-2xl overflow-hidden">
                         <img 
