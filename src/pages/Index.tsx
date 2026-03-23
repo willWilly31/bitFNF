@@ -84,7 +84,7 @@ Pesan: ${formData.message}`;
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-muted/30 to-background">
       {/* Tech Pattern Overlay */}
-      <div className="fixed inset-0 tech-pattern pointer-events-none opacity-40" />
+      <div className="fixed inset-0 tech-pattern pointer-events-none opacity-40" style={parallax(-0.03, 20)} />
 
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur-xl shadow-sm">
