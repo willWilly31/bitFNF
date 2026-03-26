@@ -2,12 +2,14 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, MapPin, Phone, Clock, Instagram, MessageCircle, CheckCircle, Wrench, Cpu, Battery, Smartphone } from "lucide-react";
+import { Mail, MapPin, Phone, Clock, Instagram, MessageCircle, CheckCircle, Wrench, Star, Sun, Moon } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useTheme } from "next-themes";
 import { toast } from "sonner";
-import logoFull from "@/assets/logo-full.png";
+import logoFull from "@/assets/logo-full.jpg";
 import bitHero from "@/assets/bit-hero.png";
 import bitHeroDark from "@/assets/bit-hero-dark.png";
+import logoHeader from "@/assets/logo-header.png";
 import logoIcon from "@/assets/logo-icon.png";
 import unlockIcon from "@/assets/services/unlock.png";
 import softwareIcon from "@/assets/services/software.png";
@@ -51,64 +53,123 @@ const useParallax = () => {
   return getStyle;
 };
 
+const testimonials = [
+  {
+    name: "Rizky Pratama",
+    device: "iPhone 13 Pro",
+    rating: 5,
+    text: "LCD pecah parah, dalam 2 jam sudah beres. Kualitas LCD-nya original, harga masuk akal. Recommended banget!",
+  },
+  {
+    name: "Sarah Daulay",
+    device: "Samsung S23 Ultra",
+    rating: 5,
+    text: "HP mati total gak bisa nyala. Ternyata IC power rusak. Ditangani dengan cepat dan profesional. Sekarang HP normal lagi!",
+  },
+  {
+    name: "Andi Wijaya",
+    device: "Xiaomi 13T",
+    rating: 5,
+    text: "Charging port rusak, cuma butuh 1 jam buat ganti. Harga transparan, dikasih tau detail kerusakannya. Puas!",
+  },
+  {
+    name: "Maya Lubis",
+    device: "iPad Pro 2022",
+    rating: 5,
+    text: "Bootloop parah, data penting di dalamnya. Alhamdulillah data aman semua dan tablet normal kembali. Terima kasih Bit!",
+  },
+];
+
+const services = [
+  { icon: CheckCircle, title: "Cek Diagnosa", badge: "Gratis", badgeColor: "bg-green-500", image: null },
+  { icon: null, title: "Ganti LCD", badge: "LCD", badgeColor: "bg-blue-500", image: gantiLcdIcon },
+  { icon: null, title: "Ganti IC", badge: "IC", badgeColor: "bg-purple-500", image: gantiIcIcon },
+  { icon: null, title: "Ganti Baterai", badge: "Battery", badgeColor: "bg-amber-500", image: gantiBateraiIcon },
+  { icon: null, title: "Masalah Charging", badge: "Charging", badgeColor: "bg-red-500", image: chargingIcon },
+  { icon: null, title: "Ganti Port", badge: "Port", badgeColor: "bg-cyan-500", image: gntiPortIcon },
+  { icon: null, title: "Flexibel On/Off", badge: "Flexibel", badgeColor: "bg-indigo-500", image: flexibelIcon },
+  { icon: null, title: "HP Mati Total", badge: "Mati Total", badgeColor: "bg-gray-500", image: matotIcon },
+  { icon: null, title: "Bootloop", badge: "Bootloop", badgeColor: "bg-pink-500", image: bootloopIcon },
+  { icon: null, title: "Software Error", badge: "Software", badgeColor: "bg-violet-500", image: softwareIcon },
+  { icon: null, title: "Unlock", badge: "Unlock", badgeColor: "bg-teal-500", image: unlockIcon },
+  { icon: null, title: "Perbaikan Board", badge: "Board", badgeColor: "bg-orange-500", image: perbaikanBoardIcon },
+];
+
+const whyItems = [
+  {
+    icon: Wrench,
+    title: "Teknisi Berpengalaman",
+    description: "10+ tahun pengalaman menangani berbagai merek dan masalah board-level. Ahli dalam diagnosa cepat dan akurat."
+  },
+  {
+    icon: Clock,
+    title: "Cepat & Transparan",
+    description: "Estimasi biaya yang jelas, update berkala selama proses perbaikan, dan laporan lengkap kondisi sebelum & sesudah."
+  },
+  {
+    icon: CheckCircle,
+    title: "Garansi & Pickup",
+    description: "Garansi resmi untuk setiap perbaikan. Layanan pickup & delivery gratis untuk area Medan."
+  }
+];
+
 const Index = () => {
   const parallax = useParallax();
-  const [formData, setFormData] = useState({
-    name: "",
-    contact: "",
-    message: ""
-  });
+  const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+  const [formData, setFormData] = useState({ name: "", contact: "", message: "" });
+
+  useEffect(() => setMounted(true), []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
     if (!formData.name || !formData.contact || !formData.message) {
       toast.error("Mohon lengkapi semua field");
       return;
     }
-
-    // Create WhatsApp message
-    const waMessage = `Halo Bit! 
-
-Nama: ${formData.name}
-Kontak: ${formData.contact}
-Pesan: ${formData.message}`;
-    
-    const waUrl = `https://wa.me/6281390004553?text=${encodeURIComponent(waMessage)}`;
-    window.open(waUrl, '_blank');
-    
+    const waMessage = `Halo Bit! \n\nNama: ${formData.name}\nKontak: ${formData.contact}\nPesan: ${formData.message}`;
+    window.open(`https://wa.me/6281390004553?text=${encodeURIComponent(waMessage)}`, '_blank');
     toast.success("Mengarahkan ke WhatsApp...");
     setFormData({ name: "", contact: "", message: "" });
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-muted/30 to-background">
-      {/* Tech Pattern Overlay */}
       <div className="fixed inset-0 tech-pattern pointer-events-none opacity-40" style={parallax(-0.03, 20)} />
 
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur-xl shadow-sm">
-        <nav className="container mx-auto px-4 py-5">
+        <nav className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3 animate-fade-in">
-              <img src={logoIcon} alt="Bit Logo" className="w-11 h-11 animate-float drop-shadow-lg" />
+              <img src={logoHeader} alt="Bit Logo" className="w-11 h-11 rounded-lg animate-float drop-shadow-lg" />
               <div>
                 <h1 className="text-xl font-bold text-gradient tracking-tight">Bit</h1>
                 <p className="text-xs text-muted-foreground font-medium">Fast Fix No Fuss</p>
               </div>
             </div>
 
-            <div className="hidden md:flex items-center gap-8">
-              <a href="#services" className="text-sm font-semibold hover:text-primary transition-all hover:scale-105">
-                Layanan
-              </a>
-              <a href="#why" className="text-sm font-semibold hover:text-primary transition-all hover:scale-105">
-                Kenapa Kami
-              </a>
-              <a href="#contact" className="text-sm font-semibold hover:text-primary transition-all hover:scale-105">
-                Kontak
-              </a>
-              <Button asChild className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all hover:scale-105 shadow-lg">
+            <div className="flex items-center gap-4 md:gap-8">
+              <div className="hidden md:flex items-center gap-8">
+                <a href="#services" className="text-sm font-semibold hover:text-primary transition-all hover:scale-105">Layanan</a>
+                <a href="#why" className="text-sm font-semibold hover:text-primary transition-all hover:scale-105">Kenapa Kami</a>
+                <a href="#testimonials" className="text-sm font-semibold hover:text-primary transition-all hover:scale-105">Testimoni</a>
+                <a href="#contact" className="text-sm font-semibold hover:text-primary transition-all hover:scale-105">Kontak</a>
+              </div>
+
+              {/* Dark Mode Toggle */}
+              {mounted && (
+                <button
+                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                  className="relative w-10 h-10 rounded-xl bg-muted/80 hover:bg-muted flex items-center justify-center transition-all hover:scale-110"
+                  aria-label="Toggle dark mode"
+                >
+                  <Sun className="w-5 h-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-amber-500" />
+                  <Moon className="absolute w-5 h-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100 text-primary" />
+                </button>
+              )}
+
+              <Button asChild className="hidden md:inline-flex bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all hover:scale-105 shadow-lg">
                 <a href="https://wa.me/6281390004553" target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="w-4 h-4 mr-2" />
                   WhatsApp
@@ -139,17 +200,12 @@ Pesan: ${formData.message}`;
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button 
-                  asChild 
-                  size="lg" 
-                  className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all hover:scale-105 text-lg h-14 shadow-xl"
-                >
+                <Button asChild size="lg" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all hover:scale-105 text-lg h-14 shadow-xl">
                   <a href="https://wa.me/6281390004553" target="_blank" rel="noopener noreferrer">
                     <MessageCircle className="w-5 h-5 mr-2" />
                     Hubungi via WhatsApp
                   </a>
                 </Button>
-                
                 <Button asChild size="lg" variant="outline" className="text-lg h-14 border-2 hover-lift hover:border-primary/50">
                   <a href="#services">Lihat Layanan</a>
                 </Button>
@@ -175,7 +231,7 @@ Pesan: ${formData.message}`;
 
         {/* Why Choose Us */}
         <section id="why" className="container mx-auto px-4 py-20">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16" style={parallax(-0.02, 15)}>
             <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
               Kenapa Memilih <span className="text-gradient">Bit</span>?
             </h3>
@@ -185,27 +241,11 @@ Pesan: ${formData.message}`;
           </div>
 
           <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Wrench,
-                title: "Teknisi Berpengalaman",
-                description: "10+ tahun pengalaman menangani berbagai merek dan masalah board-level. Ahli dalam diagnosa cepat dan akurat."
-              },
-              {
-                icon: Clock,
-                title: "Cepat & Transparan",
-                description: "Estimasi biaya yang jelas, update berkala selama proses perbaikan, dan laporan lengkap kondisi sebelum & sesudah."
-              },
-              {
-                icon: CheckCircle,
-                title: "Garansi & Pickup",
-                description: "Garansi resmi untuk setiap perbaikan. Layanan pickup & delivery gratis untuk area Medan."
-              }
-            ].map((item, idx) => (
+            {whyItems.map((item, idx) => (
               <Card 
                 key={idx} 
                 className="p-8 hover-lift border-2 bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:border-primary/30"
-                style={{ animationDelay: `${idx * 0.15}s` }}
+                style={parallax(-0.02 - idx * 0.01, 20)}
               >
                 <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-6 glow-effect shadow-lg">
                   <item.icon className="w-7 h-7 text-white" />
@@ -219,7 +259,7 @@ Pesan: ${formData.message}`;
 
         {/* Services */}
         <section id="services" className="container mx-auto px-4 py-20">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16" style={parallax(-0.02, 15)}>
             <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
               Layanan <span className="text-gradient">Kami</span>
             </h3>
@@ -230,112 +270,21 @@ Pesan: ${formData.message}`;
 
           <div className="max-w-6xl mx-auto">
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {[
-                {
-                  icon: CheckCircle,
-                  title: "Cek Diagnosa",
-                  badge: "Gratis",
-                  badgeColor: "bg-green-500",
-                  image: null
-                },
-                {
-                  icon: null,
-                  title: "Ganti LCD",
-                  badge: "LCD",
-                  badgeColor: "bg-blue-500",
-                  image: gantiLcdIcon
-                },
-                {
-                  icon: null,
-                  title: "Ganti IC",
-                  badge: "IC",
-                  badgeColor: "bg-purple-500",
-                  image: gantiIcIcon
-                },
-                {
-                  icon: null,
-                  title: "Ganti Baterai",
-                  badge: "Battery",
-                  badgeColor: "bg-amber-500",
-                  image: gantiBateraiIcon
-                },
-                {
-                  icon: null,
-                  title: "Masalah Charging",
-                  badge: "Charging",
-                  badgeColor: "bg-red-500",
-                  image: chargingIcon
-                },
-                {
-                  icon: null,
-                  title: "Ganti Port",
-                  badge: "Port",
-                  badgeColor: "bg-cyan-500",
-                  image: gntiPortIcon
-                },
-                {
-                  icon: null,
-                  title: "Flexibel On/Off",
-                  badge: "Flexibel",
-                  badgeColor: "bg-indigo-500",
-                  image: flexibelIcon
-                },
-                {
-                  icon: null,
-                  title: "HP Mati Total",
-                  badge: "Mati Total",
-                  badgeColor: "bg-gray-500",
-                  image: matotIcon
-                },
-                {
-                  icon: null,
-                  title: "Bootloop",
-                  badge: "Bootloop",
-                  badgeColor: "bg-pink-500",
-                  image: bootloopIcon
-                },
-                {
-                  icon: null,
-                  title: "Software Error",
-                  badge: "Software",
-                  badgeColor: "bg-violet-500",
-                  image: softwareIcon
-                },
-                {
-                  icon: null,
-                  title: "Unlock",
-                  badge: "Unlock",
-                  badgeColor: "bg-teal-500",
-                  image: unlockIcon
-                },
-                {
-                  icon: null,
-                  title: "Perbaikan Board",
-                  badge: "Board",
-                  badgeColor: "bg-orange-500",
-                  image: perbaikanBoardIcon
-                }
-              ].map((service, idx) => (
+              {services.map((service, idx) => (
                 <Card 
                   key={idx}
                   className="shimmer-border group relative overflow-hidden hover-lift border-2 bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:border-transparent rounded-xl"
-                  style={{ animationDelay: `${idx * 0.05}s` }}
                 >
                   <div className="aspect-square p-5 flex flex-col items-center justify-center gap-4">
                     {service.image ? (
                       <div className="w-20 h-20 flex items-center justify-center rounded-2xl overflow-hidden">
-                        <img 
-                          src={service.image} 
-                          alt={service.title}
-                          className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110 drop-shadow-lg"
-                        />
+                        <img src={service.image} alt={service.title} className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110 drop-shadow-lg" />
                       </div>
                     ) : service.icon ? (
                       <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center transition-all duration-500 group-hover:scale-110 shadow-lg">
                         <service.icon className="w-10 h-10 text-white" />
                       </div>
                     ) : null}
-                    
                     <div className="text-center space-y-2">
                       <h4 className="text-sm font-bold leading-tight tracking-tight">{service.title}</h4>
                       <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold text-white ${service.badgeColor} shadow-md`}>
@@ -349,9 +298,47 @@ Pesan: ${formData.message}`;
           </div>
         </section>
 
+        {/* Testimonials */}
+        <section id="testimonials" className="container mx-auto px-4 py-20">
+          <div className="text-center mb-16" style={parallax(-0.02, 15)}>
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+              Apa Kata <span className="text-gradient">Pelanggan</span>?
+            </h3>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
+              Kepuasan pelanggan adalah prioritas utama kami
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            {testimonials.map((t, idx) => (
+              <Card
+                key={idx}
+                className="shimmer-border relative p-8 border-2 bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover-lift"
+                style={parallax(-0.02 - (idx % 2) * 0.015, 25)}
+              >
+                <div className="flex items-center gap-1 mb-4">
+                  {Array.from({ length: t.rating }).map((_, i) => (
+                    <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
+                  ))}
+                </div>
+                <p className="text-muted-foreground leading-relaxed mb-6 italic">"{t.text}"</p>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                    {t.name.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="font-bold tracking-tight">{t.name}</p>
+                    <p className="text-sm text-muted-foreground">{t.device}</p>
+                  </div>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </section>
+
         {/* Contact Section */}
         <section id="contact" className="container mx-auto px-4 py-20">
-          <div className="text-center mb-16">
+          <div className="text-center mb-16" style={parallax(-0.02, 15)}>
             <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
               Hubungi <span className="text-gradient">Kami</span>
             </h3>
@@ -361,57 +348,37 @@ Pesan: ${formData.message}`;
           </div>
 
           <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-            {/* Contact Info */}
             <Card className="p-10 border-2 bg-card/50 backdrop-blur-sm shadow-xl hover-lift">
               <h4 className="text-2xl font-bold mb-8 tracking-tight">Info Kontak</h4>
               <div className="space-y-5">
-                <a 
-                  href="https://wa.me/6281390004553" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-start gap-4 p-4 rounded-xl hover:bg-muted/50 transition-all group"
-                >
+                <a href="https://wa.me/6281390004553" target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 p-4 rounded-xl hover:bg-muted/50 transition-all group">
                   <MessageCircle className="w-6 h-6 mt-0.5 text-primary group-hover:scale-110 transition-transform" />
                   <div>
                     <p className="font-bold text-lg">WhatsApp</p>
                     <p className="text-sm text-muted-foreground">0813-9000-4553</p>
                   </div>
                 </a>
-
-                <a 
-                  href="https://instagram.com/bitservishpmedan" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="flex items-start gap-4 p-4 rounded-xl hover:bg-muted/50 transition-all group"
-                >
+                <a href="https://instagram.com/bitservishpmedan" target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 p-4 rounded-xl hover:bg-muted/50 transition-all group">
                   <Instagram className="w-6 h-6 mt-0.5 text-secondary group-hover:scale-110 transition-transform" />
                   <div>
                     <p className="font-bold text-lg">Instagram</p>
                     <p className="text-sm text-muted-foreground">@bitservishpmedan</p>
                   </div>
                 </a>
-
-                <a 
-                  href="mailto:bitbuddy99@gmail.com"
-                  className="flex items-start gap-4 p-4 rounded-xl hover:bg-muted/50 transition-all group"
-                >
+                <a href="mailto:bitbuddy99@gmail.com" className="flex items-start gap-4 p-4 rounded-xl hover:bg-muted/50 transition-all group">
                   <Mail className="w-6 h-6 mt-0.5 text-primary group-hover:scale-110 transition-transform" />
                   <div>
                     <p className="font-bold text-lg">Email</p>
                     <p className="text-sm text-muted-foreground">bitbuddy99@gmail.com</p>
                   </div>
                 </a>
-
                 <div className="flex items-start gap-4 p-4 rounded-xl">
                   <MapPin className="w-6 h-6 mt-0.5 text-secondary flex-shrink-0" />
                   <div>
                     <p className="font-bold text-lg">Alamat</p>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      Jl. Sei Bahorok No. 2A/71, Babura, Medan Baru, Kota Medan, Sumatera Utara 20154
-                    </p>
+                    <p className="text-sm text-muted-foreground leading-relaxed">Jl. Sei Bahorok No. 2A/71, Babura, Medan Baru, Kota Medan, Sumatera Utara 20154</p>
                   </div>
                 </div>
-
                 <div className="flex items-start gap-4 p-4 rounded-xl">
                   <Clock className="w-6 h-6 mt-0.5 text-primary" />
                   <div>
@@ -423,58 +390,22 @@ Pesan: ${formData.message}`;
               </div>
             </Card>
 
-            {/* Contact Form */}
             <Card className="p-10 border-2 bg-card/50 backdrop-blur-sm shadow-xl hover-lift">
               <h4 className="text-2xl font-bold mb-8 tracking-tight">Kirim Pesan</h4>
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                  <label htmlFor="name" className="text-sm font-bold mb-3 block">
-                    Nama
-                  </label>
-                  <Input
-                    id="name"
-                    placeholder="Nama Anda"
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    required
-                    className="h-12"
-                  />
+                  <label htmlFor="name" className="text-sm font-bold mb-3 block">Nama</label>
+                  <Input id="name" placeholder="Nama Anda" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required className="h-12" />
                 </div>
-
                 <div>
-                  <label htmlFor="contact" className="text-sm font-bold mb-3 block">
-                    Email atau WhatsApp
-                  </label>
-                  <Input
-                    id="contact"
-                    placeholder="email@contoh.com atau 08123456789"
-                    value={formData.contact}
-                    onChange={(e) => setFormData({ ...formData, contact: e.target.value })}
-                    required
-                    className="h-12"
-                  />
+                  <label htmlFor="contact" className="text-sm font-bold mb-3 block">Email atau WhatsApp</label>
+                  <Input id="contact" placeholder="email@contoh.com atau 08123456789" value={formData.contact} onChange={(e) => setFormData({ ...formData, contact: e.target.value })} required className="h-12" />
                 </div>
-
                 <div>
-                  <label htmlFor="message" className="text-sm font-bold mb-3 block">
-                    Pesan
-                  </label>
-                  <Textarea
-                    id="message"
-                    placeholder="Ceritakan masalah perangkat Anda..."
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    rows={5}
-                    required
-                    className="resize-none"
-                  />
+                  <label htmlFor="message" className="text-sm font-bold mb-3 block">Pesan</label>
+                  <Textarea id="message" placeholder="Ceritakan masalah perangkat Anda..." value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} rows={5} required className="resize-none" />
                 </div>
-
-                <Button 
-                  type="submit" 
-                  className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all hover:scale-105 shadow-xl"
-                  size="lg"
-                >
+                <Button type="submit" className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all hover:scale-105 shadow-xl" size="lg">
                   <MessageCircle className="w-5 h-5 mr-2" />
                   Kirim via WhatsApp
                 </Button>
@@ -489,24 +420,17 @@ Pesan: ${formData.message}`;
         <div className="container mx-auto px-4 py-12">
           <div className="text-center space-y-6">
             <div className="flex items-center justify-center gap-3">
-              <img src={logoIcon} alt="Bit" className="w-10 h-10 drop-shadow-lg" />
-              <span className="font-bold text-xl text-gradient tracking-tight">Bit - Fast Fix No Fuss</span>
+              <img src={logoFull} alt="Bit" className="h-12 drop-shadow-lg" />
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               © {new Date().getFullYear()} Bit Service. Perbaikan Smartphone & Tablet Profesional di Medan.
             </p>
             <div className="flex items-center justify-center gap-6 text-sm font-semibold">
-              <a href="https://wa.me/6281390004553" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline hover:scale-105 transition-all">
-                WhatsApp
-              </a>
+              <a href="https://wa.me/6281390004553" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline hover:scale-105 transition-all">WhatsApp</a>
               <span className="text-muted-foreground">•</span>
-              <a href="https://instagram.com/bitservishpmedan" target="_blank" rel="noopener noreferrer" className="text-secondary hover:underline hover:scale-105 transition-all">
-                Instagram
-              </a>
+              <a href="https://instagram.com/bitservishpmedan" target="_blank" rel="noopener noreferrer" className="text-secondary hover:underline hover:scale-105 transition-all">Instagram</a>
               <span className="text-muted-foreground">•</span>
-              <a href="mailto:bitbuddy99@gmail.com" className="hover:underline hover:scale-105 transition-all">
-                Email
-              </a>
+              <a href="mailto:bitbuddy99@gmail.com" className="hover:underline hover:scale-105 transition-all">Email</a>
             </div>
           </div>
         </div>
