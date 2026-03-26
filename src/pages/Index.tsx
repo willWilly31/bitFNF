@@ -141,12 +141,9 @@ const Index = () => {
       <header className="sticky top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur-xl shadow-sm">
         <nav className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3 animate-fade-in">
-              <img src={logoHeader} alt="Bit Logo" className="w-11 h-11 rounded-lg animate-float drop-shadow-lg" />
-              <div>
-                <h1 className="text-xl font-bold text-gradient tracking-tight">Bit</h1>
-                <p className="text-xs text-muted-foreground font-medium">Fast Fix No Fuss</p>
-              </div>
+            <div className="flex items-center gap-2 animate-fade-in">
+              <h1 className="text-xl font-bold text-gradient tracking-tight">Bit</h1>
+              <span className="text-xs text-muted-foreground font-medium">Fast Fix No Fuss</span>
             </div>
 
             <div className="flex items-center gap-4 md:gap-8">
