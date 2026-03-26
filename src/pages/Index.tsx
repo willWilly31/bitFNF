@@ -6,7 +6,7 @@ import { Mail, MapPin, Phone, Clock, Instagram, MessageCircle, CheckCircle, Wren
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
-import logoFull from "@/assets/logo-full.jpg";
+import logoFull from "@/assets/logo-full.png";
 import bitHero from "@/assets/bit-hero.png";
 import bitHeroDark from "@/assets/bit-hero-dark.png";
 import logoHeader from "@/assets/logo-header.png";
@@ -416,10 +416,7 @@ const Index = () => {
       <footer className="relative border-t border-border/40 bg-muted/20 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-12">
           <div className="text-center space-y-6">
-            <div className="flex items-center justify-center gap-3">
-              <img src={logoIcon} alt="Bit" className="w-10 h-10 drop-shadow-lg" />
-              <span className="font-bold text-xl text-gradient tracking-tight">Bit - Fast Fix No Fuss</span>
-            </div>
+             <img src={logoFull} alt="Bit - Fast Fix No Fuss" className="h-16 md:h-20 drop-shadow-lg" />
             <p className="text-sm text-muted-foreground leading-relaxed">
               © {new Date().getFullYear()} Bit Service. Perbaikan Smartphone & Tablet Profesional di Medan.
             </p>
