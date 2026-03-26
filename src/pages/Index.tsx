@@ -420,7 +420,8 @@ const Index = () => {
         <div className="container mx-auto px-4 py-12">
           <div className="text-center space-y-6">
             <div className="flex items-center justify-center gap-3">
-              <img src={logoFull} alt="Bit" className="h-12 drop-shadow-lg" />
+              <img src={logoIcon} alt="Bit" className="w-10 h-10 drop-shadow-lg" />
+              <span className="font-bold text-xl text-gradient tracking-tight">Bit - Fast Fix No Fuss</span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               © {new Date().getFullYear()} Bit Service. Perbaikan Smartphone & Tablet Profesional di Medan.
