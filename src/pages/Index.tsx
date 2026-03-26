@@ -6,7 +6,7 @@ import { Mail, MapPin, Phone, Clock, Instagram, MessageCircle, CheckCircle, Wren
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
-import logoFull from "@/assets/logo-full.jpg";
+import logoFull from "@/assets/logo-full.png";
 import bitHero from "@/assets/bit-hero.png";
 import bitHeroDark from "@/assets/bit-hero-dark.png";
 import logoHeader from "@/assets/logo-header.png";
