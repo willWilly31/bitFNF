@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Mail, MapPin, Clock, Instagram, MessageCircle, CheckCircle, Wrench, Sun, Moon } from "lucide-react";
 import { ContainerScroll, CardsContainer, CardTransformed, ReviewStars } from "@/components/ui/animated-cards-stack";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
