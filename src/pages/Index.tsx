@@ -2,15 +2,13 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, MapPin, Phone, Clock, Instagram, MessageCircle, CheckCircle, Wrench, Star, Sun, Moon } from "lucide-react";
+import { Mail, MapPin, Clock, Instagram, MessageCircle, CheckCircle, Wrench, Star, Sun, Moon } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
-import logoFull from "@/assets/logo-full.png";
+import logoNew from "@/assets/logo-new.svg";
 import bitHero from "@/assets/bit-hero.png";
 import bitHeroDark from "@/assets/bit-hero-dark.png";
-import logoHeader from "@/assets/logo-header.png";
-import logoIcon from "@/assets/logo-icon.png";
 import unlockIcon from "@/assets/services/unlock.png";
 import softwareIcon from "@/assets/services/software.png";
 import matotIcon from "@/assets/services/matot.png";
@@ -416,7 +414,7 @@ const Index = () => {
       <footer className="relative border-t border-border/40 bg-muted/20 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-12">
           <div className="text-center space-y-6">
-             <img src={logoFull} alt="Bit - Fast Fix No Fuss" className="h-16 md:h-20 drop-shadow-lg" />
+             <img src={logoNew} alt="Bit - Fast Fix No Fuss" className="h-20 md:h-24 drop-shadow-lg" />
             <p className="text-sm text-muted-foreground leading-relaxed">
               © {new Date().getFullYear()} Bit Service. Perbaikan Smartphone & Tablet Profesional di Medan.
             </p>
