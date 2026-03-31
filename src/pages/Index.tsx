@@ -417,7 +417,7 @@ const Index = () => {
       <footer className="relative border-t border-border/40 bg-muted/20 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-12">
           <div className="text-center space-y-6">
-             <img src={logoFull} alt="Bit - Fast Fix No Fuss" className="h-16 md:h-20 drop-shadow-lg" />
+             <img src={logoNew} alt="Bit - Fast Fix No Fuss" className="h-20 md:h-24 drop-shadow-lg" />
             <p className="text-sm text-muted-foreground leading-relaxed">
               © {new Date().getFullYear()} Bit Service. Perbaikan Smartphone & Tablet Profesional di Medan.
             </p>
