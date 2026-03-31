@@ -2,7 +2,9 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, MapPin, Clock, Instagram, MessageCircle, CheckCircle, Wrench, Star, Sun, Moon } from "lucide-react";
+import { Mail, MapPin, Clock, Instagram, MessageCircle, CheckCircle, Wrench, Sun, Moon } from "lucide-react";
+import { ContainerScroll, CardsContainer, CardTransformed, ReviewStars } from "@/components/ui/animated-cards-stack";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
@@ -294,8 +296,8 @@ const Index = () => {
         </section>
 
         {/* Testimonials */}
-        <section id="testimonials" className="container mx-auto px-4 py-20">
-          <div className="text-center mb-16" style={parallax(-0.02, 15)}>
+        <section id="testimonials" className="py-20 px-4">
+          <div className="text-center mb-8" style={parallax(-0.02, 15)}>
             <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
               Apa Kata <span className="text-gradient">Pelanggan</span>?
             </h3>
@@ -304,31 +306,42 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-            {testimonials.map((t, idx) => (
-              <Card
-                key={idx}
-                className="shimmer-border relative p-8 border-2 bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover-lift"
-                style={parallax(-0.02 - (idx % 2) * 0.015, 25)}
-              >
-                <div className="flex items-center gap-1 mb-4">
-                  {Array.from({ length: t.rating }).map((_, i) => (
-                    <Star key={i} className="w-5 h-5 fill-amber-400 text-amber-400" />
-                  ))}
-                </div>
-                <p className="text-muted-foreground leading-relaxed mb-6 italic">"{t.text}"</p>
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary to-secondary flex items-center justify-center text-white font-bold text-lg shadow-lg">
-                    {t.name.charAt(0)}
-                  </div>
-                  <div>
-                    <p className="font-bold tracking-tight">{t.name}</p>
-                    <p className="text-sm text-muted-foreground">{t.device}</p>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
+          <ContainerScroll className="container h-[300vh]">
+            <div className="sticky left-0 top-0 h-svh w-full py-12">
+              <CardsContainer className="mx-auto size-full h-[450px] w-[350px]">
+                {testimonials.map((t, index) => (
+                  <CardTransformed
+                    arrayLength={testimonials.length}
+                    key={t.name}
+                    variant={theme === 'dark' ? 'dark' : 'light'}
+                    index={index + 2}
+                    role="article"
+                  >
+                    <div className="flex flex-col items-center space-y-4 text-center">
+                      <ReviewStars
+                        className="text-amber-500"
+                        rating={t.rating}
+                      />
+                      <div className="mx-auto w-4/5 text-lg">
+                        <blockquote>"{t.text}"</blockquote>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-4">
+                      <Avatar className="!size-12 border-2 border-border">
+                        <AvatarFallback className="bg-gradient-to-br from-primary to-secondary text-primary-foreground font-bold text-lg">
+                          {t.name.charAt(0)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div>
+                        <span className="block text-lg font-semibold tracking-tight">{t.name}</span>
+                        <span className="block text-sm text-muted-foreground">{t.device}</span>
+                      </div>
+                    </div>
+                  </CardTransformed>
+                ))}
+              </CardsContainer>
+            </div>
+          </ContainerScroll>
         </section>
 
         {/* Contact Section */}
