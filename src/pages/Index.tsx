@@ -6,12 +6,9 @@ import { Mail, MapPin, Clock, Instagram, MessageCircle, CheckCircle, Wrench, Sta
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
-import logoFull from "@/assets/logo-full.png";
 import logoNew from "@/assets/logo-new.svg";
 import bitHero from "@/assets/bit-hero.png";
 import bitHeroDark from "@/assets/bit-hero-dark.png";
-import logoHeader from "@/assets/logo-header.png";
-import logoIcon from "@/assets/logo-icon.png";
 import unlockIcon from "@/assets/services/unlock.png";
 import softwareIcon from "@/assets/services/software.png";
 import matotIcon from "@/assets/services/matot.png";
