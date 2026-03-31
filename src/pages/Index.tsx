@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Mail, MapPin, Phone, Clock, Instagram, MessageCircle, CheckCircle, Wrench, Star, Sun, Moon } from "lucide-react";
+import { Mail, MapPin, Clock, Instagram, MessageCircle, CheckCircle, Wrench, Star, Sun, Moon } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
