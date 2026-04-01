@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Mail, MapPin, Clock, Instagram, MessageCircle, CheckCircle, Wrench, Sun, Moon } from "lucide-react";
 import { ContainerScroll, CardsContainer, CardTransformed, ReviewStars } from "@/components/ui/animated-cards-stack";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
@@ -116,20 +117,23 @@ const Index = () => {
   const parallax = useParallax();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [formData, setFormData] = useState({ name: "", contact: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", contact: "", brand: "", damage: "", message: "" });
 
   useEffect(() => setMounted(true), []);
 
+  const brands = ["iPhone", "Samsung", "Xiaomi", "OPPO", "Vivo", "Realme", "Huawei", "OnePlus", "Google Pixel", "iPad", "Tablet Lainnya", "Lainnya"];
+  const damages = ["Ganti LCD", "Ganti IC", "Ganti Baterai", "Masalah Charging", "Ganti Port", "Flexibel On/Off", "HP Mati Total", "Bootloop", "Software Error", "Unlock", "Perbaikan Board", "Lainnya"];
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.contact || !formData.message) {
+    if (!formData.name || !formData.contact || !formData.brand || !formData.damage) {
       toast.error("Mohon lengkapi semua field");
       return;
     }
-    const waMessage = `Halo Bit! \n\nNama: ${formData.name}\nKontak: ${formData.contact}\nPesan: ${formData.message}`;
+    const waMessage = `Halo Bit! \n\nNama: ${formData.name}\nKontak: ${formData.contact}\nMerk: ${formData.brand}\nKerusakan: ${formData.damage}\nCatatan: ${formData.message || '-'}`;
     window.open(`https://wa.me/6281390004553?text=${encodeURIComponent(waMessage)}`, '_blank');
     toast.success("Mengarahkan ke WhatsApp...");
-    setFormData({ name: "", contact: "", message: "" });
+    setFormData({ name: "", contact: "", brand: "", damage: "", message: "" });
   };
 
   return (
@@ -270,18 +274,18 @@ const Index = () => {
                   key={idx}
                   className="shimmer-border group relative overflow-hidden hover-lift border-2 bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:border-transparent rounded-xl"
                 >
-                  <div className="aspect-square p-5 flex flex-col items-center justify-center gap-4">
+                  <div className="aspect-[3/4] p-4 flex flex-col items-center justify-center gap-5">
                     {service.image ? (
-                      <div className="w-20 h-20 flex items-center justify-center rounded-2xl overflow-hidden">
-                        <img src={service.image} alt={service.title} className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110 drop-shadow-lg" />
+                      <div className="w-28 h-28 md:w-32 md:h-32 flex items-center justify-center rounded-2xl overflow-hidden transition-all duration-700 group-hover:scale-115">
+                        <img src={service.image} alt={service.title} className="w-full h-full object-contain drop-shadow-xl transition-all duration-700 group-hover:drop-shadow-[0_8px_30px_rgba(0,182,240,0.4)]" />
                       </div>
                     ) : service.icon ? (
-                      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center transition-all duration-500 group-hover:scale-110 shadow-lg">
-                        <service.icon className="w-10 h-10 text-white" />
+                      <div className="w-28 h-28 md:w-32 md:h-32 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center transition-all duration-700 group-hover:scale-115 shadow-xl group-hover:shadow-[0_8px_40px_rgba(0,182,240,0.35)]">
+                        <service.icon className="w-14 h-14 md:w-16 md:h-16 text-white" />
                       </div>
                     ) : null}
                     <div className="text-center space-y-2">
-                      <h4 className="text-sm font-bold leading-tight tracking-tight">{service.title}</h4>
+                      <h4 className="text-base font-bold leading-tight tracking-tight">{service.title}</h4>
                       <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold text-white ${service.badgeColor} shadow-md`}>
                         {service.badge}
                       </span>
@@ -397,19 +401,45 @@ const Index = () => {
             </Card>
 
             <Card className="p-10 border-2 bg-card/50 backdrop-blur-sm shadow-xl hover-lift">
-              <h4 className="text-2xl font-bold mb-8 tracking-tight">Kirim Pesan</h4>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <h4 className="text-2xl font-bold mb-8 tracking-tight">Form Servis</h4>
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label htmlFor="name" className="text-sm font-bold mb-3 block">Nama</label>
+                  <label htmlFor="name" className="text-sm font-bold mb-2 block">Nama</label>
                   <Input id="name" placeholder="Nama Anda" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required className="h-12" />
                 </div>
                 <div>
-                  <label htmlFor="contact" className="text-sm font-bold mb-3 block">Email atau WhatsApp</label>
-                  <Input id="contact" placeholder="email@contoh.com atau 08123456789" value={formData.contact} onChange={(e) => setFormData({ ...formData, contact: e.target.value })} required className="h-12" />
+                  <label htmlFor="contact" className="text-sm font-bold mb-2 block">WhatsApp / Email</label>
+                  <Input id="contact" placeholder="08123456789" value={formData.contact} onChange={(e) => setFormData({ ...formData, contact: e.target.value })} required className="h-12" />
                 </div>
                 <div>
-                  <label htmlFor="message" className="text-sm font-bold mb-3 block">Pesan</label>
-                  <Textarea id="message" placeholder="Ceritakan masalah perangkat Anda..." value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} rows={5} required className="resize-none" />
+                  <label htmlFor="brand" className="text-sm font-bold mb-2 block">Merk Perangkat</label>
+                  <Select value={formData.brand} onValueChange={(v) => setFormData({ ...formData, brand: v })}>
+                    <SelectTrigger className="h-12">
+                      <SelectValue placeholder="Pilih merk perangkat" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {brands.map((b) => (
+                        <SelectItem key={b} value={b}>{b}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label htmlFor="damage" className="text-sm font-bold mb-2 block">Jenis Kerusakan</label>
+                  <Select value={formData.damage} onValueChange={(v) => setFormData({ ...formData, damage: v })}>
+                    <SelectTrigger className="h-12">
+                      <SelectValue placeholder="Pilih jenis kerusakan" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {damages.map((d) => (
+                        <SelectItem key={d} value={d}>{d}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label htmlFor="message" className="text-sm font-bold mb-2 block">Catatan Tambahan <span className="text-muted-foreground font-normal">(opsional)</span></label>
+                  <Textarea id="message" placeholder="Ceritakan detail masalah perangkat Anda..." value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} rows={4} className="resize-none" />
                 </div>
                 <Button type="submit" className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all hover:scale-105 shadow-xl" size="lg">
                   <MessageCircle className="w-5 h-5 mr-2" />
