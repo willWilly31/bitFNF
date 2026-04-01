@@ -401,19 +401,45 @@ const Index = () => {
             </Card>
 
             <Card className="p-10 border-2 bg-card/50 backdrop-blur-sm shadow-xl hover-lift">
-              <h4 className="text-2xl font-bold mb-8 tracking-tight">Kirim Pesan</h4>
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <h4 className="text-2xl font-bold mb-8 tracking-tight">Form Servis</h4>
+              <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
-                  <label htmlFor="name" className="text-sm font-bold mb-3 block">Nama</label>
+                  <label htmlFor="name" className="text-sm font-bold mb-2 block">Nama</label>
                   <Input id="name" placeholder="Nama Anda" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} required className="h-12" />
                 </div>
                 <div>
-                  <label htmlFor="contact" className="text-sm font-bold mb-3 block">Email atau WhatsApp</label>
-                  <Input id="contact" placeholder="email@contoh.com atau 08123456789" value={formData.contact} onChange={(e) => setFormData({ ...formData, contact: e.target.value })} required className="h-12" />
+                  <label htmlFor="contact" className="text-sm font-bold mb-2 block">WhatsApp / Email</label>
+                  <Input id="contact" placeholder="08123456789" value={formData.contact} onChange={(e) => setFormData({ ...formData, contact: e.target.value })} required className="h-12" />
                 </div>
                 <div>
-                  <label htmlFor="message" className="text-sm font-bold mb-3 block">Pesan</label>
-                  <Textarea id="message" placeholder="Ceritakan masalah perangkat Anda..." value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} rows={5} required className="resize-none" />
+                  <label htmlFor="brand" className="text-sm font-bold mb-2 block">Merk Perangkat</label>
+                  <Select value={formData.brand} onValueChange={(v) => setFormData({ ...formData, brand: v })}>
+                    <SelectTrigger className="h-12">
+                      <SelectValue placeholder="Pilih merk perangkat" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {brands.map((b) => (
+                        <SelectItem key={b} value={b}>{b}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label htmlFor="damage" className="text-sm font-bold mb-2 block">Jenis Kerusakan</label>
+                  <Select value={formData.damage} onValueChange={(v) => setFormData({ ...formData, damage: v })}>
+                    <SelectTrigger className="h-12">
+                      <SelectValue placeholder="Pilih jenis kerusakan" />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {damages.map((d) => (
+                        <SelectItem key={d} value={d}>{d}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+                <div>
+                  <label htmlFor="message" className="text-sm font-bold mb-2 block">Catatan Tambahan <span className="text-muted-foreground font-normal">(opsional)</span></label>
+                  <Textarea id="message" placeholder="Ceritakan detail masalah perangkat Anda..." value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} rows={4} className="resize-none" />
                 </div>
                 <Button type="submit" className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all hover:scale-105 shadow-xl" size="lg">
                   <MessageCircle className="w-5 h-5 mr-2" />
