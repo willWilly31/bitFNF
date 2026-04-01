@@ -433,7 +433,7 @@ const Index = () => {
                   <div className="flex items-center gap-2">
                     <span className="text-foreground text-3xl font-bold">Bit</span>
                   </div>
-                  <p className="text-muted-foreground font-semibold text-center w-full max-w-sm sm:w-96 px-4 sm:px-0">
+                  <p className="text-muted-foreground text-sm text-center w-full max-w-sm sm:w-96 px-4 sm:px-0">
                     Fast Fix No Fuss — Perbaikan Smartphone & Tablet Profesional di Medan.
                   </p>
                 </div>
