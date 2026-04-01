@@ -9,8 +9,7 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
 import logoNew from "@/assets/logo-new.svg";
-import bitHero from "@/assets/bit-hero.png";
-import bitHeroDark from "@/assets/bit-hero-dark.png";
+import bitHeroNew from "@/assets/bit-hero-new.png";
 import unlockIcon from "@/assets/services/unlock.png";
 import softwareIcon from "@/assets/services/software.png";
 import matotIcon from "@/assets/services/matot.png";
@@ -215,11 +214,10 @@ const Index = () => {
             </div>
 
             <div className="relative animate-fade-in" style={{ animationDelay: "0.2s" }}>
-              <div className="relative aspect-square max-w-md mx-auto" style={parallax(-0.05, 40)}>
+              <div className="relative max-w-md mx-auto" style={parallax(-0.05, 40)}>
                 <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-3xl blur-3xl opacity-25 animate-glow" style={parallax(-0.08, 30)} />
-                <div className="relative overflow-hidden rounded-3xl">
-                  <img src={bitHero} alt="Bit - Fast Fix No Fuss" className="w-full h-full object-cover dark:hidden" />
-                  <img src={bitHeroDark} alt="Bit - Fast Fix No Fuss" className="w-full h-full object-cover hidden dark:block" />
+                <div className="relative">
+                  <img src={bitHeroNew} alt="Bit - Fast Fix No Fuss" className="w-full h-full object-contain drop-shadow-2xl" />
                 </div>
               </div>
             </div>
