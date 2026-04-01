@@ -479,7 +479,7 @@ const Index = () => {
 
           {/* Bottom logo */}
           <div className="absolute hover:border-foreground duration-400 drop-shadow-[0_0px_20px_rgba(0,0,0,0.5)] dark:drop-shadow-[0_0px_20px_rgba(255,255,255,0.3)] bottom-24 md:bottom-20 backdrop-blur-sm rounded-3xl bg-background/60 left-1/2 border-2 border-border flex items-center justify-center p-3 -translate-x-1/2 z-10">
-            <div className="w-12 sm:w-16 md:w-24 h-12 sm:h-16 md:h-24 bg-gradient-to-br from-foreground to-foreground/80 rounded-2xl flex items-center justify-center shadow-lg overflow-hidden">
+            <div className="w-12 sm:w-16 md:w-24 h-12 sm:h-16 md:h-24 bg-white dark:bg-foreground/90 rounded-2xl flex items-center justify-center shadow-lg overflow-hidden">
               <img src={logoNew} alt="Bit" className="w-10 sm:w-14 md:w-20 h-10 sm:h-14 md:h-20 object-contain drop-shadow-lg" />
             </div>
           </div>
