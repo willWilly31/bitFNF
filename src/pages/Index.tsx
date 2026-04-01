@@ -3,7 +3,7 @@ import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Mail, MapPin, Clock, Instagram, MessageCircle, CheckCircle, Wrench, Sun, Moon, ChevronDown, Smartphone } from "lucide-react";
+import { Mail, MapPin, Clock, Instagram, MessageCircle, CheckCircle, Wrench, Sun, Moon } from "lucide-react";
 import { ContainerScroll, CardsContainer, CardTransformed, ReviewStars } from "@/components/ui/animated-cards-stack";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useState, useEffect, useRef, useCallback } from "react";
