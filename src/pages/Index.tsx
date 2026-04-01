@@ -117,20 +117,23 @@ const Index = () => {
   const parallax = useParallax();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
-  const [formData, setFormData] = useState({ name: "", contact: "", message: "" });
+  const [formData, setFormData] = useState({ name: "", contact: "", brand: "", damage: "", message: "" });
 
   useEffect(() => setMounted(true), []);
 
+  const brands = ["iPhone", "Samsung", "Xiaomi", "OPPO", "Vivo", "Realme", "Huawei", "OnePlus", "Google Pixel", "iPad", "Tablet Lainnya", "Lainnya"];
+  const damages = ["Ganti LCD", "Ganti IC", "Ganti Baterai", "Masalah Charging", "Ganti Port", "Flexibel On/Off", "HP Mati Total", "Bootloop", "Software Error", "Unlock", "Perbaikan Board", "Lainnya"];
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.contact || !formData.message) {
+    if (!formData.name || !formData.contact || !formData.brand || !formData.damage) {
       toast.error("Mohon lengkapi semua field");
       return;
     }
-    const waMessage = `Halo Bit! \n\nNama: ${formData.name}\nKontak: ${formData.contact}\nPesan: ${formData.message}`;
+    const waMessage = `Halo Bit! \n\nNama: ${formData.name}\nKontak: ${formData.contact}\nMerk: ${formData.brand}\nKerusakan: ${formData.damage}\nCatatan: ${formData.message || '-'}`;
     window.open(`https://wa.me/6281390004553?text=${encodeURIComponent(waMessage)}`, '_blank');
     toast.success("Mengarahkan ke WhatsApp...");
-    setFormData({ name: "", contact: "", message: "" });
+    setFormData({ name: "", contact: "", brand: "", damage: "", message: "" });
   };
 
   return (
