@@ -274,18 +274,18 @@ const Index = () => {
                   key={idx}
                   className="shimmer-border group relative overflow-hidden hover-lift border-2 bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:border-transparent rounded-xl"
                 >
-                  <div className="aspect-square p-5 flex flex-col items-center justify-center gap-4">
+                  <div className="aspect-[3/4] p-4 flex flex-col items-center justify-center gap-5">
                     {service.image ? (
-                      <div className="w-20 h-20 flex items-center justify-center rounded-2xl overflow-hidden">
-                        <img src={service.image} alt={service.title} className="w-full h-full object-contain transition-all duration-500 group-hover:scale-110 drop-shadow-lg" />
+                      <div className="w-28 h-28 md:w-32 md:h-32 flex items-center justify-center rounded-2xl overflow-hidden transition-all duration-700 group-hover:scale-115">
+                        <img src={service.image} alt={service.title} className="w-full h-full object-contain drop-shadow-xl transition-all duration-700 group-hover:drop-shadow-[0_8px_30px_rgba(0,182,240,0.4)]" />
                       </div>
                     ) : service.icon ? (
-                      <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center transition-all duration-500 group-hover:scale-110 shadow-lg">
-                        <service.icon className="w-10 h-10 text-white" />
+                      <div className="w-28 h-28 md:w-32 md:h-32 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center transition-all duration-700 group-hover:scale-115 shadow-xl group-hover:shadow-[0_8px_40px_rgba(0,182,240,0.35)]">
+                        <service.icon className="w-14 h-14 md:w-16 md:h-16 text-white" />
                       </div>
                     ) : null}
                     <div className="text-center space-y-2">
-                      <h4 className="text-sm font-bold leading-tight tracking-tight">{service.title}</h4>
+                      <h4 className="text-base font-bold leading-tight tracking-tight">{service.title}</h4>
                       <span className={`inline-block px-3 py-1 rounded-full text-xs font-bold text-white ${service.badgeColor} shadow-md`}>
                         {service.badge}
                       </span>
