@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Mail, MapPin, Clock, Instagram, MessageCircle, CheckCircle, Wrench, Sun, Moon } from "lucide-react";
-import { ContainerScroll, CardsContainer, CardTransformed, ReviewStars } from "@/components/ui/animated-cards-stack";
+import { TestimonialCarousel } from "@/components/TestimonialCarousel";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTheme } from "next-themes";
