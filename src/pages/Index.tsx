@@ -316,7 +316,7 @@ const Index = () => {
                     arrayLength={testimonials.length}
                     key={t.name}
                     variant={theme === 'dark' ? 'dark' : 'light'}
-                    index={index + 2}
+                    index={index}
                     role="article"
                   >
                     <div className="flex flex-col items-center space-y-4 text-center">
