@@ -9,6 +9,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
+import { supabase } from "@/integrations/supabase/client";
 import logoNew from "@/assets/logo-new.svg";
 import bitHeroNew from "@/assets/bit-hero-new.png";
 import unlockIcon from "@/assets/services/unlock.png";
@@ -124,15 +125,29 @@ const Index = () => {
   const brands = ["iPhone", "Samsung", "Xiaomi", "OPPO", "Vivo", "Realme", "Huawei", "OnePlus", "Google Pixel", "iPad", "Tablet Lainnya", "Lainnya"];
   const damages = ["Ganti LCD", "Ganti IC", "Ganti Baterai", "Masalah Charging", "Ganti Port", "Flexibel On/Off", "HP Mati Total", "Bootloop", "Software Error", "Unlock", "Perbaikan Board", "Lainnya"];
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.contact || !formData.brand || !formData.damage) {
       toast.error("Mohon lengkapi semua field");
       return;
     }
+
+    // Save to database
+    try {
+      await supabase.from("service_requests").insert({
+        customer_name: formData.name,
+        phone: formData.contact,
+        brand: formData.brand,
+        damage_type: formData.damage,
+        description: formData.message || null,
+      });
+    } catch (err) {
+      console.error("Failed to save service request:", err);
+    }
+
     const waMessage = `Halo Bit! \n\nNama: ${formData.name}\nKontak: ${formData.contact}\nMerk: ${formData.brand}\nKerusakan: ${formData.damage}\nCatatan: ${formData.message || '-'}`;
     window.open(`https://wa.me/6281390004553?text=${encodeURIComponent(waMessage)}`, '_blank');
-    toast.success("Mengarahkan ke WhatsApp...");
+    toast.success("Request servis terkirim!");
     setFormData({ name: "", contact: "", brand: "", damage: "", message: "" });
   };
 
