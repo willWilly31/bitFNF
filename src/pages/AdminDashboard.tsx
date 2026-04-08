@@ -3,16 +3,16 @@ import { useAuth } from "@/lib/auth";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Select, SelectContent, SelectItem, SelectTrigger } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Badge } from "@/components/ui/badge";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { toast } from "sonner";
-import { Plus, LogOut, FileText, MessageCircle, Trash2, Eye, Send } from "lucide-react";
+import { Plus, LogOut, FileText, MessageCircle, Trash2, Eye } from "lucide-react";
 
 const statusColors: Record<string, string> = {
   draft: "bg-muted text-muted-foreground",
@@ -168,7 +168,7 @@ const AdminDashboard = () => {
   };
 
   const updateInvoiceStatus = async (id: string, status: string) => {
-    const { error } = await supabase.from("invoices").update({ status }).eq("id", id);
+    const { error } = await supabase.from("invoices").update({ status: status as any }).eq("id", id);
     if (error) {
       toast.error(error.message);
     } else {
