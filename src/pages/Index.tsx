@@ -5,7 +5,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Mail, MapPin, Clock, Instagram, MessageCircle, CheckCircle, Wrench, Sun, Moon } from "lucide-react";
 import { TestimonialCarousel } from "@/components/TestimonialCarousel";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { PortfolioGallery } from "@/components/PortfolioGallery";
+
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
@@ -23,6 +24,9 @@ import chargingIcon from "@/assets/services/charging.png";
 import bootloopIcon from "@/assets/services/bootloop.png";
 import gantiBateraiIcon from "@/assets/services/ganti_baterai.png";
 import perbaikanBoardIcon from "@/assets/services/perbaikan_board.jpeg";
+
+
+
 
 const useParallax = () => {
   const [scrollY, setScrollY] = useState(0);
@@ -310,6 +314,20 @@ const Index = () => {
               ))}
             </div>
           </div>
+        </section>
+
+        {/* Portfolio / Marketing Gallery */}
+        <section id="portfolio" className="container mx-auto px-4 py-20">
+          <div className="text-center mb-16" style={parallax(-0.02, 15)}>
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+              Hasil Kerja <span className="text-gradient">Kami</span>
+            </h3>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
+              Perbaikan board-level dengan presisi tinggi dan peralatan profesional
+            </p>
+          </div>
+
+          <PortfolioGallery />
         </section>
 
         {/* Testimonials */}
