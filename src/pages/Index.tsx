@@ -5,7 +5,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Mail, MapPin, Clock, Instagram, MessageCircle, CheckCircle, Wrench, Sun, Moon } from "lucide-react";
 import { TestimonialCarousel } from "@/components/TestimonialCarousel";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { PortfolioGallery } from "@/components/PortfolioGallery";
+
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
@@ -23,9 +24,8 @@ import chargingIcon from "@/assets/services/charging.png";
 import bootloopIcon from "@/assets/services/bootloop.png";
 import gantiBateraiIcon from "@/assets/services/ganti_baterai.png";
 import perbaikanBoardIcon from "@/assets/services/perbaikan_board.jpeg";
-import portfolio1 from "@/assets/portfolio/board-1.jpg";
-import portfolio2 from "@/assets/portfolio/board-2.jpg";
-import portfolio3 from "@/assets/portfolio/board-3.jpg";
+
+
 
 
 const useParallax = () => {
