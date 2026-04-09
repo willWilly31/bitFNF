@@ -6,6 +6,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Mail, MapPin, Clock, Instagram, MessageCircle, CheckCircle, Wrench, Sun, Moon } from "lucide-react";
 import { TestimonialCarousel } from "@/components/TestimonialCarousel";
 import { PortfolioGallery } from "@/components/PortfolioGallery";
+import { CertificateShowcase } from "@/components/CertificateShowcase";
 
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useTheme } from "next-themes";
