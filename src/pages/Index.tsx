@@ -331,6 +331,20 @@ const Index = () => {
           <PortfolioGallery />
         </section>
 
+        {/* Sertifikasi */}
+        <section id="certificates" className="container mx-auto px-4 py-20">
+          <div className="text-center mb-16" style={parallax(-0.02, 15)}>
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+              Sertifikasi <span className="text-gradient">Resmi</span>
+            </h3>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
+              Teknisi tersertifikasi dari lembaga pelatihan resmi untuk menjamin kualitas perbaikan
+            </p>
+          </div>
+
+          <CertificateShowcase />
+        </section>
+
         {/* Testimonials */}
         <section id="testimonials" className="py-20 px-4">
           <div className="text-center mb-12" style={parallax(-0.02, 15)}>
