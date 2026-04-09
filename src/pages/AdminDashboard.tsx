@@ -73,6 +73,13 @@ const AdminDashboard = () => {
     }
   }, [user, isAdmin, authLoading, navigate]);
 
+  useEffect(() => {
+    if (isAdmin) {
+      fetchInvoices();
+      fetchServiceRequests();
+    }
+  }, [isAdmin]);
+
   if (authLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-background">
@@ -85,13 +92,6 @@ const AdminDashboard = () => {
     return null;
   }
 
-
-  useEffect(() => {
-    if (isAdmin) {
-      fetchInvoices();
-      fetchServiceRequests();
-    }
-  }, [isAdmin]);
 
   const fetchInvoices = async () => {
     const { data } = await supabase
