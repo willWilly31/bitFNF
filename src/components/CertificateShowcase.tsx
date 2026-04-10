@@ -20,102 +20,37 @@ const certificates = [
   },
 ];
 
-// Particle system with orbiting effect
-interface Particle {
-  id: number;
-  angle: number;
-  radius: number;
-  speed: number;
-  size: number;
-  opacity: number;
-  orbitOffset: number;
-}
-
-const generateParticles = (count: number): Particle[] =>
-  Array.from({ length: count }, (_, i) => ({
-    id: i,
-    angle: Math.random() * 360,
-    radius: 40 + Math.random() * 45,
-    speed: 0.15 + Math.random() * 0.3,
-    size: 2 + Math.random() * 3,
-    opacity: 0.3 + Math.random() * 0.5,
-    orbitOffset: Math.random() * Math.PI * 2,
-  }));
-
+// Lightweight CSS-based particle effect instead of canvas
 const OrbitingParticles = memo(({ active }: { active: boolean }) => {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-  const particlesRef = useRef<Particle[]>(generateParticles(18));
-  const frameRef = useRef(0);
-  const rafRef = useRef<number>(0);
-  const lastTimeRef = useRef(0);
-  const fpsInterval = useRef(1000 / 30); // Cap at 30fps for performance
-
-  const animate = useCallback((timestamp: number) => {
-    if (!canvasRef.current || !active) return;
-    const elapsed = timestamp - lastTimeRef.current;
-    if (elapsed < fpsInterval.current) {
-      rafRef.current = requestAnimationFrame(animate);
-      return;
-    }
-    lastTimeRef.current = timestamp - (elapsed % fpsInterval.current);
-
-    const canvas = canvasRef.current;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    const w = canvas.width;
-    const h = canvas.height;
-    const cx = w / 2;
-    const cy = h / 2;
-
-    ctx.clearRect(0, 0, w, h);
-    frameRef.current += 1;
-
-    particlesRef.current.forEach((p) => {
-      const angle = (p.angle + frameRef.current * p.speed) * (Math.PI / 180);
-      const rx = (p.radius / 100) * cx;
-      const ry = (p.radius / 100) * cy * 0.85;
-      const x = cx + Math.cos(angle + p.orbitOffset) * rx;
-      const y = cy + Math.sin(angle + p.orbitOffset) * ry;
-
-      // Amber/gold particles - contrasting with blue/purple palette
-      ctx.beginPath();
-      ctx.arc(x, y, p.size, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(245, 158, 11, ${p.opacity * 0.7})`;
-      ctx.fill();
-
-      // Glow
-      ctx.beginPath();
-      ctx.arc(x, y, p.size * 2.5, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(245, 158, 11, ${p.opacity * 0.15})`;
-      ctx.fill();
-    });
-
-    rafRef.current = requestAnimationFrame(animate);
-  }, [active]);
-
-  useEffect(() => {
-    if (!canvasRef.current || !active) return;
-    const canvas = canvasRef.current;
-    const rect = canvas.getBoundingClientRect();
-    canvas.width = rect.width * (window.devicePixelRatio > 1 ? 2 : 1);
-    canvas.height = rect.height * (window.devicePixelRatio > 1 ? 2 : 1);
-    
-    rafRef.current = requestAnimationFrame(animate);
-    return () => cancelAnimationFrame(rafRef.current);
-  }, [active, animate]);
-
+  if (!active) return null;
+  
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full pointer-events-none z-10"
-      aria-hidden="true"
-    />
+    <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden rounded-2xl">
+      {Array.from({ length: 8 }).map((_, i) => (
+        <div
+          key={i}
+          className="absolute w-1.5 h-1.5 rounded-full bg-amber-400/60"
+          style={{
+            left: `${15 + (i * 10)}%`,
+            top: `${10 + (i % 3) * 30}%`,
+            animation: `orbit-${i % 4} ${3 + i * 0.5}s ease-in-out infinite`,
+            animationDelay: `${i * 0.3}s`,
+            boxShadow: '0 0 6px 2px rgba(245,158,11,0.3)',
+          }}
+        />
+      ))}
+      <style>{`
+        @keyframes orbit-0 { 0%,100% { transform: translate(0,0); opacity:0.6; } 50% { transform: translate(20px,-15px); opacity:1; } }
+        @keyframes orbit-1 { 0%,100% { transform: translate(0,0); opacity:0.5; } 50% { transform: translate(-15px,20px); opacity:0.9; } }
+        @keyframes orbit-2 { 0%,100% { transform: translate(0,0); opacity:0.7; } 50% { transform: translate(15px,15px); opacity:1; } }
+        @keyframes orbit-3 { 0%,100% { transform: translate(0,0); opacity:0.4; } 50% { transform: translate(-20px,-10px); opacity:0.8; } }
+      `}</style>
+    </div>
   );
 });
 OrbitingParticles.displayName = "OrbitingParticles";
 
-export const CertificateShowcase = () => {
+export const CertificateShowcase = memo(() => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -123,13 +58,12 @@ export const CertificateShowcase = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.15, rootMargin: "100px" }
+      { threshold: 0.1, rootMargin: "100px" }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
   }, []);
 
-  // Auto-switch
   useEffect(() => {
     if (!isVisible) return;
     const timer = setInterval(() => {
@@ -144,22 +78,20 @@ export const CertificateShowcase = () => {
         {certificates.map((cert, idx) => (
           <motion.div
             key={idx}
-            initial={{ opacity: 0, y: 40 }}
-            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-            transition={{ delay: idx * 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, y: 30 }}
+            animate={isVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+            transition={{ delay: idx * 0.15, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
             <button
               onClick={() => setActiveIndex(idx)}
-              className={`relative w-full rounded-2xl overflow-hidden transition-all duration-700 group ${
+              className={`relative w-full rounded-2xl overflow-hidden transition-all duration-500 group ${
                 activeIndex === idx
                   ? "ring-2 ring-primary ring-offset-2 ring-offset-background shadow-2xl scale-[1.02]"
-                  : "opacity-70 hover:opacity-90 hover:scale-[1.01] shadow-lg"
+                  : "opacity-70 hover:opacity-90 shadow-lg"
               }`}
             >
-              {/* Particle overlay */}
               <OrbitingParticles active={isVisible && activeIndex === idx} />
 
-              {/* Certificate image - object-contain to avoid cropping */}
               <div className="relative bg-muted/20 p-3 md:p-4">
                 <img
                   src={cert.src}
@@ -170,14 +102,13 @@ export const CertificateShowcase = () => {
                 />
               </div>
 
-              {/* Info overlay at bottom */}
               <AnimatePresence>
                 {activeIndex === idx && (
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 15 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    transition={{ duration: 0.3, ease: "easeOut" }}
                     className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent p-4 md:p-5"
                   >
                     <h4 className="text-sm md:text-base font-bold text-white drop-shadow-lg leading-tight">
@@ -188,7 +119,6 @@ export const CertificateShowcase = () => {
                 )}
               </AnimatePresence>
 
-              {/* Subtle shimmer border on active */}
               {activeIndex === idx && (
                 <div className="absolute inset-0 rounded-2xl pointer-events-none border-2 border-primary/20" />
               )}
@@ -197,7 +127,6 @@ export const CertificateShowcase = () => {
         ))}
       </div>
 
-      {/* Dots indicator */}
       <div className="flex justify-center gap-2 mt-6">
         {certificates.map((_, i) => (
           <button
@@ -213,4 +142,5 @@ export const CertificateShowcase = () => {
       </div>
     </div>
   );
-};
+});
+CertificateShowcase.displayName = "CertificateShowcase";

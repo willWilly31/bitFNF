@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, memo } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import portfolio1 from "@/assets/portfolio/board-1.jpg";
 import portfolio2 from "@/assets/portfolio/board-2.jpg";
@@ -10,7 +10,7 @@ const portfolioItems = [
   { src: portfolio3, title: "Micro Component Repair", desc: "Penggantian komponen mikro pada motherboard smartphone" },
 ];
 
-export const PortfolioGallery = () => {
+export const PortfolioGallery = memo(() => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef<HTMLDivElement>(null);
@@ -18,7 +18,7 @@ export const PortfolioGallery = () => {
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.2 }
+      { threshold: 0.1 }
     );
     if (sectionRef.current) observer.observe(sectionRef.current);
     return () => observer.disconnect();
@@ -31,25 +31,25 @@ export const PortfolioGallery = () => {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeIndex}
-            initial={{ opacity: 0, scale: 1.08, filter: "blur(8px)" }}
-            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-            exit={{ opacity: 0, scale: 0.95, filter: "blur(6px)" }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, scale: 1.03 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.97 }}
+            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             className="absolute inset-0"
           >
             <img
               src={portfolioItems[activeIndex].src}
               alt={portfolioItems[activeIndex].title}
               className="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
             />
-            {/* Gradient overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
             
-            {/* Text overlay */}
             <motion.div
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.5, ease: "easeOut" }}
+              transition={{ delay: 0.2, duration: 0.4, ease: "easeOut" }}
               className="absolute bottom-0 left-0 right-0 p-6 md:p-10"
             >
               <h4 className="text-xl md:text-2xl font-bold text-white mb-2 drop-shadow-lg">
@@ -66,31 +66,31 @@ export const PortfolioGallery = () => {
       {/* Thumbnails */}
       <div className="grid grid-cols-3 gap-3 md:gap-4">
         {portfolioItems.map((item, idx) => (
-          <motion.button
+          <button
             key={idx}
             onClick={() => setActiveIndex(idx)}
-            initial={isVisible ? { opacity: 0, y: 30 } : false}
-            animate={isVisible ? { opacity: 1, y: 0 } : undefined}
-            transition={{ delay: 0.1 + idx * 0.15, duration: 0.5, ease: "easeOut" }}
-            className={`relative rounded-xl overflow-hidden aspect-video group cursor-pointer transition-all duration-500 ${
+            className={`relative rounded-xl overflow-hidden aspect-video group cursor-pointer transition-all duration-300 ${
               activeIndex === idx
                 ? "ring-2 ring-primary ring-offset-2 ring-offset-background shadow-xl scale-[1.02]"
-                : "opacity-60 hover:opacity-90 hover:scale-[1.01]"
+                : "opacity-60 hover:opacity-90"
             }`}
           >
             <img
               src={item.src}
               alt={item.title}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+              className="w-full h-full object-cover"
+              loading="lazy"
+              decoding="async"
             />
-            <div className={`absolute inset-0 transition-opacity duration-500 ${
+            <div className={`absolute inset-0 transition-opacity duration-300 ${
               activeIndex === idx
                 ? "bg-primary/10"
                 : "bg-black/30 group-hover:bg-black/10"
             }`} />
-          </motion.button>
+          </button>
         ))}
       </div>
     </div>
   );
-};
+});
+PortfolioGallery.displayName = "PortfolioGallery";
