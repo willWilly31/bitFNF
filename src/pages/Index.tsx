@@ -8,7 +8,7 @@ import { TestimonialCarousel } from "@/components/TestimonialCarousel";
 import { PortfolioGallery } from "@/components/PortfolioGallery";
 import { CertificateShowcase } from "@/components/CertificateShowcase";
 
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -25,39 +25,6 @@ import chargingIcon from "@/assets/services/charging.png";
 import bootloopIcon from "@/assets/services/bootloop.png";
 import gantiBateraiIcon from "@/assets/services/ganti_baterai.png";
 import perbaikanBoardIcon from "@/assets/services/perbaikan_board.jpeg";
-
-
-
-
-const useParallax = () => {
-  const [scrollY, setScrollY] = useState(0);
-  const ticking = useRef(false);
-
-  useEffect(() => {
-    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (prefersReduced) return;
-
-    const onScroll = () => {
-      if (!ticking.current) {
-        requestAnimationFrame(() => {
-          setScrollY(window.scrollY);
-          ticking.current = false;
-        });
-        ticking.current = true;
-      }
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  const getStyle = useCallback((speed: number, maxOffset = 60) => {
-    const offset = Math.min(Math.max(scrollY * speed, -maxOffset), maxOffset);
-    return { transform: `translate3d(0, ${offset}px, 0)`, willChange: 'transform' } as const;
-  }, [scrollY]);
-
-  return getStyle;
-};
 
 const testimonials = [
   {
@@ -120,7 +87,6 @@ const whyItems = [
 ];
 
 const Index = () => {
-  const parallax = useParallax();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState({ name: "", contact: "", brand: "", damage: "", message: "" });
@@ -137,7 +103,6 @@ const Index = () => {
       return;
     }
 
-    // Save to database
     try {
       await supabase.from("service_requests").insert({
         customer_name: formData.name,
@@ -158,30 +123,29 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-background via-muted/30 to-background">
-      <div className="fixed inset-0 tech-pattern pointer-events-none opacity-40" style={parallax(-0.03, 20)} />
+      <div className="fixed inset-0 tech-pattern pointer-events-none opacity-40" />
 
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-border/40 bg-background/95 backdrop-blur-xl shadow-sm">
         <nav className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 animate-fade-in">
+            <div className="flex items-center gap-2">
               <h1 className="text-xl font-bold text-gradient tracking-tight">Bit</h1>
               <span className="text-xs text-muted-foreground font-medium">Fast Fix No Fuss</span>
             </div>
 
             <div className="flex items-center gap-4 md:gap-8">
               <div className="hidden md:flex items-center gap-8">
-                <a href="#services" className="text-sm font-semibold hover:text-primary transition-all hover:scale-105">Layanan</a>
-                <a href="#why" className="text-sm font-semibold hover:text-primary transition-all hover:scale-105">Kenapa Kami</a>
-                <a href="#testimonials" className="text-sm font-semibold hover:text-primary transition-all hover:scale-105">Testimoni</a>
-                <a href="#contact" className="text-sm font-semibold hover:text-primary transition-all hover:scale-105">Kontak</a>
+                <a href="#services" className="text-sm font-semibold hover:text-primary transition-colors">Layanan</a>
+                <a href="#why" className="text-sm font-semibold hover:text-primary transition-colors">Kenapa Kami</a>
+                <a href="#testimonials" className="text-sm font-semibold hover:text-primary transition-colors">Testimoni</a>
+                <a href="#contact" className="text-sm font-semibold hover:text-primary transition-colors">Kontak</a>
               </div>
 
-              {/* Dark Mode Toggle */}
               {mounted && (
                 <button
                   onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-                  className="relative w-10 h-10 rounded-xl bg-muted/80 hover:bg-muted flex items-center justify-center transition-all hover:scale-110"
+                  className="relative w-10 h-10 rounded-xl bg-muted/80 hover:bg-muted flex items-center justify-center transition-colors"
                   aria-label="Toggle dark mode"
                 >
                   <Sun className="w-5 h-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0 text-amber-500" />
@@ -189,7 +153,7 @@ const Index = () => {
                 </button>
               )}
 
-              <Button asChild className="hidden md:inline-flex bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all hover:scale-105 shadow-lg">
+              <Button asChild className="hidden md:inline-flex bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity shadow-lg">
                 <a href="https://wa.me/6281390004553" target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="w-4 h-4 mr-2" />
                   WhatsApp
@@ -220,13 +184,13 @@ const Index = () => {
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button asChild size="lg" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all hover:scale-105 text-lg h-14 shadow-xl">
+                <Button asChild size="lg" className="bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity text-lg h-14 shadow-xl">
                   <a href="https://wa.me/6281390004553" target="_blank" rel="noopener noreferrer">
                     <MessageCircle className="w-5 h-5 mr-2" />
                     Hubungi via WhatsApp
                   </a>
                 </Button>
-                <Button asChild size="lg" variant="outline" className="text-lg h-14 border-2 hover-lift hover:border-primary/50">
+                <Button asChild size="lg" variant="outline" className="text-lg h-14 border-2 hover:border-primary/50 transition-colors">
                   <a href="#services">Lihat Layanan</a>
                 </Button>
               </div>
@@ -238,10 +202,10 @@ const Index = () => {
             </div>
 
             <div className="relative animate-fade-in" style={{ animationDelay: "0.2s" }}>
-              <div className="relative max-w-md mx-auto" style={parallax(-0.05, 40)}>
-                <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-3xl blur-3xl opacity-25 animate-glow" style={parallax(-0.08, 30)} />
+              <div className="relative max-w-md mx-auto">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary to-secondary rounded-3xl blur-3xl opacity-25 animate-glow" />
                 <div className="relative">
-                  <img src={bitHeroNew} alt="Bit - Fast Fix No Fuss" className="w-full h-full object-contain drop-shadow-2xl" />
+                  <img src={bitHeroNew} alt="Bit - Fast Fix No Fuss" className="w-full h-full object-contain drop-shadow-2xl" loading="eager" />
                 </div>
               </div>
             </div>
@@ -250,7 +214,7 @@ const Index = () => {
 
         {/* Why Choose Us */}
         <section id="why" className="container mx-auto px-4 py-20">
-          <div className="text-center mb-16" style={parallax(-0.02, 15)}>
+          <div className="text-center mb-16">
             <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
               Kenapa Memilih <span className="text-gradient">Bit</span>?
             </h3>
@@ -263,10 +227,9 @@ const Index = () => {
             {whyItems.map((item, idx) => (
               <Card 
                 key={idx} 
-                className="p-8 hover-lift border-2 bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:border-primary/30"
-                style={parallax(-0.02 - idx * 0.01, 20)}
+                className="p-8 border-2 bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:border-primary/30 transition-all duration-300 hover:-translate-y-1"
               >
-                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-6 glow-effect shadow-lg">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center mb-6 shadow-lg">
                   <item.icon className="w-7 h-7 text-white" />
                 </div>
                 <h4 className="text-xl font-bold mb-3 tracking-tight">{item.title}</h4>
@@ -278,7 +241,7 @@ const Index = () => {
 
         {/* Services */}
         <section id="services" className="container mx-auto px-4 py-20">
-          <div className="text-center mb-16" style={parallax(-0.02, 15)}>
+          <div className="text-center mb-16">
             <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
               Layanan <span className="text-gradient">Kami</span>
             </h3>
@@ -292,15 +255,15 @@ const Index = () => {
               {services.map((service, idx) => (
                 <Card 
                   key={idx}
-                  className="shimmer-border group relative overflow-hidden hover-lift border-2 bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:border-transparent rounded-xl"
+                  className="shimmer-border group relative overflow-hidden border-2 bg-card/50 backdrop-blur-sm shadow-lg hover:shadow-2xl hover:border-transparent rounded-xl transition-shadow duration-300 hover:-translate-y-1"
                 >
                   <div className="aspect-[3/4] p-4 flex flex-col items-center justify-center gap-5">
                     {service.image ? (
-                      <div className="w-28 h-28 md:w-32 md:h-32 flex items-center justify-center rounded-2xl overflow-hidden transition-all duration-700 group-hover:scale-115">
-                        <img src={service.image} alt={service.title} className="w-full h-full object-contain drop-shadow-xl transition-all duration-700 group-hover:drop-shadow-[0_8px_30px_rgba(0,182,240,0.4)]" />
+                      <div className="w-28 h-28 md:w-32 md:h-32 flex items-center justify-center rounded-2xl overflow-hidden transition-transform duration-500 group-hover:scale-110">
+                        <img src={service.image} alt={service.title} loading="lazy" decoding="async" className="w-full h-full object-contain drop-shadow-xl" />
                       </div>
                     ) : service.icon ? (
-                      <div className="w-28 h-28 md:w-32 md:h-32 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center transition-all duration-700 group-hover:scale-115 shadow-xl group-hover:shadow-[0_8px_40px_rgba(0,182,240,0.35)]">
+                      <div className="w-28 h-28 md:w-32 md:h-32 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center transition-transform duration-500 group-hover:scale-110 shadow-xl">
                         <service.icon className="w-14 h-14 md:w-16 md:h-16 text-white" />
                       </div>
                     ) : null}
@@ -317,9 +280,9 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Portfolio / Marketing Gallery */}
+        {/* Portfolio */}
         <section id="portfolio" className="container mx-auto px-4 py-20">
-          <div className="text-center mb-16" style={parallax(-0.02, 15)}>
+          <div className="text-center mb-16">
             <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
               Hasil Kerja <span className="text-gradient">Kami</span>
             </h3>
@@ -333,7 +296,7 @@ const Index = () => {
 
         {/* Sertifikasi */}
         <section id="certificates" className="container mx-auto px-4 py-20">
-          <div className="text-center mb-16" style={parallax(-0.02, 15)}>
+          <div className="text-center mb-16">
             <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
               Sertifikasi <span className="text-gradient">Resmi</span>
             </h3>
@@ -347,7 +310,7 @@ const Index = () => {
 
         {/* Testimonials */}
         <section id="testimonials" className="py-20 px-4">
-          <div className="text-center mb-12" style={parallax(-0.02, 15)}>
+          <div className="text-center mb-12">
             <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
               Apa Kata <span className="text-gradient">Pelanggan</span>?
             </h3>
@@ -361,7 +324,7 @@ const Index = () => {
 
         {/* Contact Section */}
         <section id="contact" className="container mx-auto px-4 py-20">
-          <div className="text-center mb-16" style={parallax(-0.02, 15)}>
+          <div className="text-center mb-16">
             <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
               Hubungi <span className="text-gradient">Kami</span>
             </h3>
@@ -371,24 +334,24 @@ const Index = () => {
           </div>
 
           <div className="grid md:grid-cols-2 gap-10 max-w-5xl mx-auto">
-            <Card className="p-10 border-2 bg-card/50 backdrop-blur-sm shadow-xl hover-lift">
+            <Card className="p-10 border-2 bg-card/50 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-shadow duration-300">
               <h4 className="text-2xl font-bold mb-8 tracking-tight">Info Kontak</h4>
               <div className="space-y-5">
-                <a href="https://wa.me/6281390004553" target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 p-4 rounded-xl hover:bg-muted/50 transition-all group">
+                <a href="https://wa.me/6281390004553" target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
                   <MessageCircle className="w-6 h-6 mt-0.5 text-primary group-hover:scale-110 transition-transform" />
                   <div>
                     <p className="font-bold text-lg">WhatsApp</p>
                     <p className="text-sm text-muted-foreground">0813-9000-4553</p>
                   </div>
                 </a>
-                <a href="https://instagram.com/bitservishpmedan" target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 p-4 rounded-xl hover:bg-muted/50 transition-all group">
+                <a href="https://instagram.com/bitservishpmedan" target="_blank" rel="noopener noreferrer" className="flex items-start gap-4 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
                   <Instagram className="w-6 h-6 mt-0.5 text-secondary group-hover:scale-110 transition-transform" />
                   <div>
                     <p className="font-bold text-lg">Instagram</p>
                     <p className="text-sm text-muted-foreground">@bitservishpmedan</p>
                   </div>
                 </a>
-                <a href="mailto:bitbuddy99@gmail.com" className="flex items-start gap-4 p-4 rounded-xl hover:bg-muted/50 transition-all group">
+                <a href="mailto:bitbuddy99@gmail.com" className="flex items-start gap-4 p-4 rounded-xl hover:bg-muted/50 transition-colors group">
                   <Mail className="w-6 h-6 mt-0.5 text-primary group-hover:scale-110 transition-transform" />
                   <div>
                     <p className="font-bold text-lg">Email</p>
@@ -413,7 +376,7 @@ const Index = () => {
               </div>
             </Card>
 
-            <Card className="p-10 border-2 bg-card/50 backdrop-blur-sm shadow-xl hover-lift">
+            <Card className="p-10 border-2 bg-card/50 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-shadow duration-300">
               <h4 className="text-2xl font-bold mb-8 tracking-tight">Form Servis</h4>
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div>
@@ -454,7 +417,7 @@ const Index = () => {
                   <label htmlFor="message" className="text-sm font-bold mb-2 block">Catatan Tambahan <span className="text-muted-foreground font-normal">(opsional)</span></label>
                   <Textarea id="message" placeholder="Ceritakan detail masalah perangkat Anda..." value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })} rows={4} className="resize-none" />
                 </div>
-                <Button type="submit" className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-all hover:scale-105 shadow-xl" size="lg">
+                <Button type="submit" className="w-full bg-gradient-to-r from-primary to-secondary hover:opacity-90 transition-opacity shadow-xl" size="lg">
                   <MessageCircle className="w-5 h-5 mr-2" />
                   Kirim via WhatsApp
                 </Button>
@@ -481,24 +444,24 @@ const Index = () => {
 
                 <div className="flex mb-8 mt-3 gap-4">
                   <a href="https://wa.me/6281390004553" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
-                    <div className="w-6 h-6 hover:scale-110 duration-300"><MessageCircle className="w-6 h-6" /></div>
+                    <MessageCircle className="w-6 h-6" />
                     <span className="sr-only">WhatsApp</span>
                   </a>
                   <a href="https://instagram.com/bitservishpmedan" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-foreground transition-colors">
-                    <div className="w-6 h-6 hover:scale-110 duration-300"><Instagram className="w-6 h-6" /></div>
+                    <Instagram className="w-6 h-6" />
                     <span className="sr-only">Instagram</span>
                   </a>
                   <a href="mailto:bitbuddy99@gmail.com" className="text-muted-foreground hover:text-foreground transition-colors">
-                    <div className="w-6 h-6 hover:scale-110 duration-300"><Mail className="w-6 h-6" /></div>
+                    <Mail className="w-6 h-6" />
                     <span className="sr-only">Email</span>
                   </a>
                 </div>
 
                 <div className="flex flex-wrap justify-center gap-4 text-sm font-medium text-muted-foreground max-w-full px-4">
-                  <a className="hover:text-foreground duration-300 hover:font-semibold cursor-pointer" href="#layanan">Layanan</a>
-                  <a className="hover:text-foreground duration-300 hover:font-semibold cursor-pointer" href="#kenapa-bit">Kenapa Bit</a>
-                  <a className="hover:text-foreground duration-300 hover:font-semibold cursor-pointer" href="#testimoni">Testimoni</a>
-                  <a className="hover:text-foreground duration-300 hover:font-semibold cursor-pointer" href="#kontak">Kontak</a>
+                  <a className="hover:text-foreground transition-colors cursor-pointer" href="#services">Layanan</a>
+                  <a className="hover:text-foreground transition-colors cursor-pointer" href="#why">Kenapa Bit</a>
+                  <a className="hover:text-foreground transition-colors cursor-pointer" href="#testimonials">Testimoni</a>
+                  <a className="hover:text-foreground transition-colors cursor-pointer" href="#contact">Kontak</a>
                 </div>
               </div>
             </div>
@@ -525,10 +488,7 @@ const Index = () => {
             </div>
           </div>
 
-          {/* Bottom line */}
           <div className="absolute bottom-32 sm:bottom-34 backdrop-blur-sm h-1 bg-gradient-to-r from-transparent via-border to-transparent w-full left-1/2 -translate-x-1/2"></div>
-
-          {/* Bottom shadow */}
           <div className="bg-gradient-to-t from-background via-background/80 blur-[1em] to-background/40 absolute bottom-28 w-full h-24"></div>
         </footer>
       </section>
@@ -538,7 +498,7 @@ const Index = () => {
         href="https://wa.me/6281390004553"
         target="_blank"
         rel="noopener noreferrer"
-        className="fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-500 z-50 glow-effect animate-float"
+        className="fixed bottom-8 right-8 w-16 h-16 bg-gradient-to-r from-primary to-secondary rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-transform duration-500 z-50 animate-float"
         aria-label="Chat di WhatsApp"
       >
         <MessageCircle className="w-7 h-7 text-white drop-shadow-lg" />
