@@ -8,7 +8,7 @@ import { TestimonialCarousel } from "@/components/TestimonialCarousel";
 import { PortfolioGallery } from "@/components/PortfolioGallery";
 import { CertificateShowcase } from "@/components/CertificateShowcase";
 
-import { useState, useEffect, useRef, useCallback, useMemo, lazy, Suspense } from "react";
+import { useState, useEffect } from "react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";

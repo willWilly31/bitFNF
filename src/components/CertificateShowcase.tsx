@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback, memo } from "react";
+import { useState, useEffect, useRef, memo } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import certHardware from "@/assets/certificates/cert-hardware.jpg";
 import certSoftware from "@/assets/certificates/cert-software.jpg";
