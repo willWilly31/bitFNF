@@ -86,6 +86,19 @@ const whyItems = [
   }
 ];
 
+const cinematicVideos = [
+  {
+    title: "Proses Servis Presisi",
+    description: "Cuplikan proses penanganan perangkat secara detail dan profesional.",
+    src: "https://agzc6nhbegqnyyyk.public.blob.vercel-storage.com/VID-20240824-WA0003.mp4",
+  },
+  {
+    title: "Hasil Akhir Maksimal",
+    description: "Perangkat kembali normal dengan finishing rapi dan performa optimal.",
+    src: "https://agzc6nhbegqnyyyk.public.blob.vercel-storage.com/VID_20240926_094000.mp4",
+  },
+];
+
 const Index = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -209,6 +222,44 @@ const Index = () => {
                 </div>
               </div>
             </div>
+          </div>
+        </section>
+
+        {/* Cinematic Video Showcase */}
+        <section id="showcase-video" className="container mx-auto px-4 py-20">
+          <div className="text-center mb-16">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+              Cinematic <span className="text-gradient">Service Reel</span>
+            </h3>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
+              Lihat langsung kualitas pengerjaan Bit dalam tampilan video sinematik yang smooth.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {cinematicVideos.map((video) => (
+              <Card
+                key={video.src}
+                className="group overflow-hidden rounded-3xl border-2 border-border/70 bg-card/60 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500"
+              >
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/70 z-10 pointer-events-none" />
+                  <video
+                    className="w-full h-[420px] md:h-[520px] object-cover rounded-3xl group-hover:scale-[1.02] transition-transform duration-700"
+                    controls
+                    playsInline
+                    preload="metadata"
+                  >
+                    <source src={video.src} type="video/mp4" />
+                    Browser Anda tidak mendukung video HTML5.
+                  </video>
+                </div>
+                <div className="p-6 md:p-7">
+                  <h4 className="text-xl font-bold tracking-tight mb-2">{video.title}</h4>
+                  <p className="text-muted-foreground leading-relaxed">{video.description}</p>
+                </div>
+              </Card>
+            ))}
           </div>
         </section>
 
