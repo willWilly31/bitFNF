@@ -8,7 +8,7 @@ import { TestimonialCarousel } from "@/components/TestimonialCarousel";
 import { PortfolioGallery } from "@/components/PortfolioGallery";
 import { CertificateShowcase } from "@/components/CertificateShowcase";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -86,10 +86,160 @@ const whyItems = [
   }
 ];
 
+const cinematicVideos = [
+  {
+    title: "Proses perbaikan pada board indikasi kerusakan short dgn menggunakan metode suntik tegangan yang sesuai jalur/ rangkaian",
+    description: "Penelusuran titik short pada board dilakukan dengan metode suntik tegangan sesuai jalur rangkaian agar diagnosa akurat dan aman.",
+    src: "https://agzc6nhbegqnyyyk.public.blob.vercel-storage.com/VID-20240824-WA0003.mp4",
+  },
+  {
+    title: "Perbaikan port usb dgn menggunakan part original",
+    description: "Penggantian port USB menggunakan part original untuk menjaga kestabilan charging dan daya tahan perangkat.",
+    src: "https://agzc6nhbegqnyyyk.public.blob.vercel-storage.com/VID_20240926_094000.mp4",
+  },
+];
+
+const WhySectionParticleBackdrop = () => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+
+    const context = canvas.getContext("2d");
+    if (!context) return;
+
+    const parent = canvas.parentElement;
+    if (!parent) return;
+
+    let animationFrameId = 0;
+    const pointer = { x: 0, y: 0, active: false };
+
+    class Particle {
+      x: number;
+      y: number;
+      vx: number;
+      vy: number;
+      size: number;
+
+      constructor(width: number, height: number) {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.vx = (Math.random() - 0.5) * 0.5;
+        this.vy = (Math.random() - 0.5) * 0.5;
+        this.size = Math.random() * 2 + 0.9;
+      }
+
+      update(width: number, height: number) {
+        if (this.x <= 0 || this.x >= width) this.vx *= -1;
+        if (this.y <= 0 || this.y >= height) this.vy *= -1;
+
+        if (pointer.active) {
+          const dx = pointer.x - this.x;
+          const dy = pointer.y - this.y;
+          const distance = Math.hypot(dx, dy) || 1;
+          if (distance < 140) {
+            this.x -= (dx / distance) * 0.8;
+            this.y -= (dy / distance) * 0.8;
+          }
+        }
+
+        this.x += this.vx;
+        this.y += this.vy;
+      }
+
+      draw() {
+        context.beginPath();
+        context.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        context.fillStyle = "rgba(56, 189, 248, 0.5)";
+        context.fill();
+      }
+    }
+
+    let particles: Particle[] = [];
+
+    const resizeCanvas = () => {
+      const { clientWidth, clientHeight } = parent;
+      canvas.width = clientWidth;
+      canvas.height = clientHeight;
+      const count = Math.max(45, Math.floor((clientWidth * clientHeight) / 16000));
+      particles = Array.from({ length: count }, () => new Particle(clientWidth, clientHeight));
+    };
+
+    const drawConnections = () => {
+      for (let i = 0; i < particles.length; i += 1) {
+        for (let j = i + 1; j < particles.length; j += 1) {
+          const dx = particles[i].x - particles[j].x;
+          const dy = particles[i].y - particles[j].y;
+          const distance = Math.hypot(dx, dy);
+
+          if (distance < 150) {
+            const opacity = 1 - distance / 150;
+            context.beginPath();
+            context.moveTo(particles[i].x, particles[i].y);
+            context.lineTo(particles[j].x, particles[j].y);
+            context.strokeStyle = `rgba(109, 80, 255, ${opacity * 0.35})`;
+            context.lineWidth = 1;
+            context.stroke();
+          }
+        }
+      }
+    };
+
+    const animate = () => {
+      context.clearRect(0, 0, canvas.width, canvas.height);
+
+      particles.forEach((particle) => {
+        particle.update(canvas.width, canvas.height);
+        particle.draw();
+      });
+
+      drawConnections();
+      animationFrameId = window.requestAnimationFrame(animate);
+    };
+
+    const handlePointerMove = (event: PointerEvent) => {
+      const bounds = canvas.getBoundingClientRect();
+      const insideX = event.clientX >= bounds.left && event.clientX <= bounds.right;
+      const insideY = event.clientY >= bounds.top && event.clientY <= bounds.bottom;
+      pointer.active = insideX && insideY;
+      pointer.x = event.clientX - bounds.left;
+      pointer.y = event.clientY - bounds.top;
+    };
+
+    const handlePointerLeave = () => {
+      pointer.active = false;
+    };
+
+    resizeCanvas();
+    animate();
+
+    window.addEventListener("resize", resizeCanvas);
+    window.addEventListener("pointermove", handlePointerMove);
+    window.addEventListener("pointerleave", handlePointerLeave);
+
+    return () => {
+      window.cancelAnimationFrame(animationFrameId);
+      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("pointermove", handlePointerMove);
+      window.removeEventListener("pointerleave", handlePointerLeave);
+    };
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      className="absolute inset-0 h-full w-full"
+      aria-hidden="true"
+    />
+  );
+};
+
 const Index = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState({ name: "", contact: "", brand: "", damage: "", message: "" });
+  const [activeVideo, setActiveVideo] = useState(0);
 
   useEffect(() => setMounted(true), []);
 
@@ -212,9 +362,57 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Why Choose Us */}
-        <section id="why" className="container mx-auto px-4 py-20">
+        {/* Cinematic Video Showcase */}
+        <section id="showcase-video" className="container mx-auto px-4 py-20">
           <div className="text-center mb-16">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+              Cinematic <span className="text-gradient">Service Reel</span>
+            </h3>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
+              Lihat langsung kualitas pengerjaan Bit dalam tampilan video sinematik yang smooth.
+            </p>
+          </div>
+
+          <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-start md:justify-center">
+            {cinematicVideos.map((video, index) => (
+              <Card
+                key={video.src}
+                onClick={() => setActiveVideo(index)}
+                className={`group overflow-hidden rounded-3xl border-2 border-border/70 bg-card/60 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer
+                  ${activeVideo === index ? "opacity-100 z-20 scale-100" : "opacity-50 z-10 scale-[0.98]"}
+                  ${index === 0 ? "md:w-[46%] md:translate-y-0" : "md:w-[46%] md:-ml-16 lg:-ml-24 md:translate-y-8"}
+                  ${index === 0 ? "mt-0" : "mt-6 md:mt-0"}`}
+              >
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/70 z-10 pointer-events-none" />
+                  <video
+                    className="w-full h-[420px] md:h-[520px] object-cover rounded-3xl group-hover:scale-[1.02] transition-transform duration-700"
+                    controls
+                    playsInline
+                    preload="metadata"
+                    onPlay={() => setActiveVideo(index)}
+                  >
+                    <source src={video.src} type="video/mp4" />
+                    Browser Anda tidak mendukung video HTML5.
+                  </video>
+                </div>
+                <div className="p-6 md:p-7">
+                  <h4 className="text-xl font-bold tracking-tight mb-2">{video.title}</h4>
+                  <p className="text-muted-foreground leading-relaxed">{video.description}</p>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Why Choose Us */}
+        <section id="why" className="container mx-auto px-4 py-20 relative overflow-hidden">
+          <div className="absolute inset-x-2 md:inset-x-4 bottom-2 top-28 rounded-[2rem] overflow-hidden pointer-events-none opacity-80">
+            <WhySectionParticleBackdrop />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/10 via-background/0 to-background/20" />
+          </div>
+
+          <div className="text-center mb-16 relative z-10">
             <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
               Kenapa Memilih <span className="text-gradient">Bit</span>?
             </h3>
@@ -223,7 +421,7 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8 relative z-10">
             {whyItems.map((item, idx) => (
               <Card 
                 key={idx} 
