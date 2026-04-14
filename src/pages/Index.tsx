@@ -237,15 +237,11 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-start md:justify-center">
-            {cinematicVideos.map((video, index) => (
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {cinematicVideos.map((video) => (
               <Card
                 key={video.src}
-                onClick={() => setActiveVideo(index)}
-                className={`group overflow-hidden rounded-3xl border-2 border-border/70 bg-card/60 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer
-                  ${activeVideo === index ? "opacity-100 z-20 scale-100" : "opacity-50 z-10 scale-[0.98]"}
-                  ${index === 0 ? "md:w-[46%] md:translate-y-0" : "md:w-[46%] md:-ml-16 lg:-ml-24 md:translate-y-8"}
-                  ${index === 0 ? "mt-0" : "mt-6 md:mt-0"}`}
+                className="group overflow-hidden rounded-3xl border-2 border-border/70 bg-card/60 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500"
               >
                 <div className="relative">
                   <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/70 z-10 pointer-events-none" />
@@ -254,7 +250,6 @@ const Index = () => {
                     controls
                     playsInline
                     preload="metadata"
-                    onPlay={() => setActiveVideo(index)}
                   >
                     <source src={video.src} type="video/mp4" />
                     Browser Anda tidak mendukung video HTML5.
