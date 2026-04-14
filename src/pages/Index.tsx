@@ -8,7 +8,7 @@ import { TestimonialCarousel } from "@/components/TestimonialCarousel";
 import { PortfolioGallery } from "@/components/PortfolioGallery";
 import { CertificateShowcase } from "@/components/CertificateShowcase";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useTheme } from "next-themes";
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
@@ -268,6 +268,54 @@ const Index = () => {
         <section id="why" className="container mx-auto px-4 py-20">
           <div className="text-center mb-16">
             <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+              Cinematic <span className="text-gradient">Service Reel</span>
+            </h3>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
+              Lihat langsung kualitas pengerjaan Bit dalam tampilan video sinematik yang smooth.
+            </p>
+          </div>
+
+          <div className="max-w-6xl mx-auto flex flex-col md:flex-row md:items-start md:justify-center">
+            {cinematicVideos.map((video, index) => (
+              <Card
+                key={video.src}
+                onClick={() => setActiveVideo(index)}
+                className={`group overflow-hidden rounded-3xl border-2 border-border/70 bg-card/60 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer
+                  ${activeVideo === index ? "opacity-100 z-20 scale-100" : "opacity-50 z-10 scale-[0.98]"}
+                  ${index === 0 ? "md:w-[46%] md:translate-y-0" : "md:w-[46%] md:-ml-16 lg:-ml-24 md:translate-y-8"}
+                  ${index === 0 ? "mt-0" : "mt-6 md:mt-0"}`}
+              >
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/70 z-10 pointer-events-none" />
+                  <video
+                    className="w-full h-[420px] md:h-[520px] object-cover rounded-3xl group-hover:scale-[1.02] transition-transform duration-700"
+                    controls
+                    playsInline
+                    preload="metadata"
+                    onPlay={() => setActiveVideo(index)}
+                  >
+                    <source src={video.src} type="video/mp4" />
+                    Browser Anda tidak mendukung video HTML5.
+                  </video>
+                </div>
+                <div className="p-6 md:p-7">
+                  <h4 className="text-xl font-bold tracking-tight mb-2">{video.title}</h4>
+                  <p className="text-muted-foreground leading-relaxed">{video.description}</p>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Why Choose Us */}
+        <section id="why" className="container mx-auto px-4 py-20 relative overflow-hidden">
+          <div className="absolute inset-x-0 bottom-0 top-28 opacity-70">
+            <WhySectionParticleBackdrop />
+            <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/40 to-background/90" />
+          </div>
+
+          <div className="text-center mb-16 relative z-10">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
               Kenapa Memilih <span className="text-gradient">Bit</span>?
             </h3>
             <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
@@ -275,7 +323,7 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-8 relative z-10">
             {whyItems.map((item, idx) => (
               <Card 
                 key={idx} 
