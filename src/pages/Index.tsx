@@ -103,6 +103,7 @@ const Index = () => {
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [formData, setFormData] = useState({ name: "", contact: "", brand: "", damage: "", message: "" });
+  const [activeVideo, setActiveVideo] = useState(0);
 
   useEffect(() => setMounted(true), []);
 
