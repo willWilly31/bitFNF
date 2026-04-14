@@ -88,152 +88,16 @@ const whyItems = [
 
 const cinematicVideos = [
   {
-    title: "Proses perbaikan pada board indikasi kerusakan short dgn menggunakan metode suntik tegangan yang sesuai jalur/ rangkaian",
-    description: "Penelusuran titik short pada board dilakukan dengan metode suntik tegangan sesuai jalur rangkaian agar diagnosa akurat dan aman.",
+    title: "Proses Servis Presisi",
+    description: "Cuplikan proses penanganan perangkat secara detail dan profesional.",
     src: "https://agzc6nhbegqnyyyk.public.blob.vercel-storage.com/VID-20240824-WA0003.mp4",
   },
   {
-    title: "Perbaikan port usb dgn menggunakan part original",
-    description: "Penggantian port USB menggunakan part original untuk menjaga kestabilan charging dan daya tahan perangkat.",
+    title: "Hasil Akhir Maksimal",
+    description: "Perangkat kembali normal dengan finishing rapi dan performa optimal.",
     src: "https://agzc6nhbegqnyyyk.public.blob.vercel-storage.com/VID_20240926_094000.mp4",
   },
 ];
-
-const WhySectionParticleBackdrop = () => {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const context = canvas.getContext("2d");
-    if (!context) return;
-
-    const parent = canvas.parentElement;
-    if (!parent) return;
-
-    let animationFrameId = 0;
-    const pointer = { x: 0, y: 0, active: false };
-
-    class Particle {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      size: number;
-
-      constructor(width: number, height: number) {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.vx = (Math.random() - 0.5) * 0.5;
-        this.vy = (Math.random() - 0.5) * 0.5;
-        this.size = Math.random() * 2 + 0.8;
-      }
-
-      update(width: number, height: number) {
-        if (this.x <= 0 || this.x >= width) this.vx *= -1;
-        if (this.y <= 0 || this.y >= height) this.vy *= -1;
-
-        if (pointer.active) {
-          const dx = pointer.x - this.x;
-          const dy = pointer.y - this.y;
-          const distance = Math.hypot(dx, dy) || 1;
-          if (distance < 140) {
-            this.x -= (dx / distance) * 0.8;
-            this.y -= (dy / distance) * 0.8;
-          }
-        }
-
-        this.x += this.vx;
-        this.y += this.vy;
-      }
-
-      draw() {
-        context.beginPath();
-        context.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-        context.fillStyle = "rgba(34, 178, 255, 0.75)";
-        context.fill();
-      }
-    }
-
-    let particles: Particle[] = [];
-
-    const resizeCanvas = () => {
-      const { clientWidth, clientHeight } = parent;
-      canvas.width = clientWidth;
-      canvas.height = clientHeight;
-      const count = Math.max(35, Math.floor((clientWidth * clientHeight) / 20000));
-      particles = Array.from({ length: count }, () => new Particle(clientWidth, clientHeight));
-    };
-
-    const drawConnections = () => {
-      for (let i = 0; i < particles.length; i += 1) {
-        for (let j = i + 1; j < particles.length; j += 1) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const distance = Math.hypot(dx, dy);
-
-          if (distance < 120) {
-            const opacity = 1 - distance / 120;
-            context.beginPath();
-            context.moveTo(particles[i].x, particles[i].y);
-            context.lineTo(particles[j].x, particles[j].y);
-            context.strokeStyle = `rgba(122, 84, 255, ${opacity * 0.35})`;
-            context.lineWidth = 1;
-            context.stroke();
-          }
-        }
-      }
-    };
-
-    const animate = () => {
-      context.clearRect(0, 0, canvas.width, canvas.height);
-
-      particles.forEach((particle) => {
-        particle.update(canvas.width, canvas.height);
-        particle.draw();
-      });
-
-      drawConnections();
-      animationFrameId = window.requestAnimationFrame(animate);
-    };
-
-    const handlePointerMove = (event: PointerEvent) => {
-      const bounds = canvas.getBoundingClientRect();
-      const insideX = event.clientX >= bounds.left && event.clientX <= bounds.right;
-      const insideY = event.clientY >= bounds.top && event.clientY <= bounds.bottom;
-      pointer.active = insideX && insideY;
-      pointer.x = event.clientX - bounds.left;
-      pointer.y = event.clientY - bounds.top;
-    };
-
-    const handlePointerLeave = () => {
-      pointer.active = false;
-    };
-
-    resizeCanvas();
-    animate();
-
-    window.addEventListener("resize", resizeCanvas);
-    window.addEventListener("pointermove", handlePointerMove);
-    window.addEventListener("pointerleave", handlePointerLeave);
-
-    return () => {
-      window.cancelAnimationFrame(animationFrameId);
-      window.removeEventListener("resize", resizeCanvas);
-      window.removeEventListener("pointermove", handlePointerMove);
-      window.removeEventListener("pointerleave", handlePointerLeave);
-    };
-  }, []);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 h-full w-full"
-      aria-hidden="true"
-    />
-  );
-};
 
 const Index = () => {
   const { theme, setTheme } = useTheme();
@@ -364,6 +228,44 @@ const Index = () => {
 
         {/* Cinematic Video Showcase */}
         <section id="showcase-video" className="container mx-auto px-4 py-20">
+          <div className="text-center mb-16">
+            <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
+              Cinematic <span className="text-gradient">Service Reel</span>
+            </h3>
+            <p className="text-muted-foreground max-w-2xl mx-auto text-lg leading-relaxed">
+              Lihat langsung kualitas pengerjaan Bit dalam tampilan video sinematik yang smooth.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+            {cinematicVideos.map((video) => (
+              <Card
+                key={video.src}
+                className="group overflow-hidden rounded-3xl border-2 border-border/70 bg-card/60 backdrop-blur-sm shadow-xl hover:shadow-2xl transition-all duration-500"
+              >
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background/70 z-10 pointer-events-none" />
+                  <video
+                    className="w-full h-[420px] md:h-[520px] object-cover rounded-3xl group-hover:scale-[1.02] transition-transform duration-700"
+                    controls
+                    playsInline
+                    preload="metadata"
+                  >
+                    <source src={video.src} type="video/mp4" />
+                    Browser Anda tidak mendukung video HTML5.
+                  </video>
+                </div>
+                <div className="p-6 md:p-7">
+                  <h4 className="text-xl font-bold tracking-tight mb-2">{video.title}</h4>
+                  <p className="text-muted-foreground leading-relaxed">{video.description}</p>
+                </div>
+              </Card>
+            ))}
+          </div>
+        </section>
+
+        {/* Why Choose Us */}
+        <section id="why" className="container mx-auto px-4 py-20">
           <div className="text-center mb-16">
             <h3 className="text-3xl md:text-4xl font-bold mb-4 tracking-tight">
               Cinematic <span className="text-gradient">Service Reel</span>
